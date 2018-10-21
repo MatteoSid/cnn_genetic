@@ -6,6 +6,7 @@ from __future__ import print_function
 import numpy as np
 import tensorflow as tf
 import os
+import os.path
 
 # CNN_MODEL_FN IMPORT
 import cnn_model_fn
@@ -13,10 +14,14 @@ cnn_model_fn =cnn_model_fn.cnn_model_fn
 
 tf.logging.set_verbosity(tf.logging.INFO)
 
-MODE = 'TRAIN'
+MODE = 'BOTH'
 model_path = "/Users/matteo/Desktop/cnn_mnist/data/"
+epochs = 1 #1
+steps=100 #20000
 
-print("\n\n*******************")
+os.system('clear')
+
+print("*******************")
 print("*    CNN_MNIST    *")
 print("*******************\n")
 
@@ -50,12 +55,11 @@ def main(unused_argv):
     )
 
     # ADDESTRo IL MODELLO
-    if MODE == 'TRAIN':
-        print("Programma avviato in modalità TRAINING")
+    if MODE == 'TRAIN' or MODE == 'BOTH':
+        os.system('clear')
+        print("Programma avviato in modalità TRAINING\n")
         
         with tf.Session() as sess:
-            
-            #sess.run(init)
 
             train_input_fn = tf.estimator.inputs.numpy_input_fn(
                 x={"x": train_data},
@@ -65,31 +69,25 @@ def main(unused_argv):
                 shuffle=True
             )
 
-
             mnist_classifier.train(
                 input_fn=train_input_fn,
-                steps=40,
-                hooks=[logging_hook])
-            
-            #saver = tf.train.Saver()
-
-            #save_path = saver.save(sess, model_path+ 'model.ckpt') 
+                steps=steps
+                #hooks=[logging_hook]
+            )
 
     # TESTO IL MODELLO
-    elif MODE == 'TEST':
+    if MODE == 'TEST' or MODE == 'BOTH':
+        os.system('clear')
         print("Programma avviato in modalità TEST")
         eval_input_fn = tf.estimator.inputs.numpy_input_fn(
             x={"x": eval_data},
             y=eval_labels,
-            num_epochs=1,
+            num_epochs=epochs,
             shuffle=False)
         
         eval_results = mnist_classifier.evaluate(input_fn=eval_input_fn)
         
         print(eval_results)
-    else:
-        print("La modalità inserita non è valida")
-
 
 if __name__ == "__main__":
-    tf.app.run() 
+    tf.app.run()
