@@ -3,6 +3,8 @@ import os
 import numpy as np
 from pylab import *
 import matplotlib.pyplot as plt
+import matplotlib as mpl
+mpl.rcParams['figure.max_open_warning'] = 0
 
 os.system('clear')
 
@@ -27,7 +29,7 @@ def converter_fn(path, file_name):
             h=h+1
             array.append(innerarray)
             innerarray=[]
-    log = 'Immagine salvata alla posizione: ' + path + 'image_from_' + file_name + '.png\nL\'immagine ha dimensione[h,w]=[' + str(h) + ', ' + str(w) + '].\n'
+    log = 'Immagine salvata alla posizione: ' + path + 'image_from_' + file_name + '\nL\'immagine ha dimensione[h,w]=[' + str(h) + ', ' + str(w) + '].\n'
     #print('L\'immagine ha dimensione[h,w]=[' + str(h) + ', ' + str(w) + '].\n')
     array=np.asarray(array)
 
