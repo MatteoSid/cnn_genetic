@@ -13,14 +13,16 @@ dir_restore = dir_restore.dir_restore
 os.system('clear')
 
 # MATRICI DA GENERARE
-n_mat = 50                      # numerop di matrici da generare
-dimension = 100                  # dimensione delle matrici da generare
+n_mat = 10                      # numerop di matrici da generare
+dimension = 50                  # dimensione delle matrici da generare
 delta = 40.0                     # parametro delta per la creazione delle matrici
 name_mat = 'image_generator'    # nome da assegnare alle matrici una volta generate
 
 # NOME DEI FILE CONVERTITI IN .PNG
 name_img = 'data'
-path = '/Users/matteo/Documents/GitHub/Cnn_Genetic/cnn_genetic/dataset/'
+
+path = str(os.getcwd()) + '/dataset/'
+print(path)
 
 dir_restore(path=path)
 
