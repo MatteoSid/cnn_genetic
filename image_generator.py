@@ -20,9 +20,9 @@ name_mat = 'image_generator'    # nome da assegnare alle matrici una volta gener
 
 # NOME DEI FILE CONVERTITI IN .PNG
 name_img = 'data'
-path = '/Users/matteo/Documents/GitHub/Cnn_Genetic/cnn_genetic/msdir/dataset/'
+path = '/Users/matteo/Documents/GitHub/Cnn_Genetic/cnn_genetic/dataset/'
 
-dir_restore(path='', mode='AUTO')
+dir_restore(path=path)
 
 print('\nGenero i dataset e ne estraggo le matrici')
 # GENERO LE MATRICI IN FORMATO .TXT
@@ -30,7 +30,7 @@ for i in tqdm(range(1, n_mat+1)):
 
 
     # Uso ms per generare le matrici in msdir/dataset/1_original_dataset/
-    os.system('cd msdir ; ./ms ' + str(dimension) + ' 1 -t ' + str(delta) +' > dataset/1_original_dataset/' + '1_' + name_mat + '_' + str(i) + '.txt')
+    os.system('cd msdir ; ./ms ' + str(dimension) + ' 1 -t ' + str(delta) +' > ' + path + '/1_original_dataset/' + '1_' + name_mat + '_' + str(i) + '.txt')
     row = 1
 
     # Apro l' n-esimo file .txt creato da ms
