@@ -3,10 +3,11 @@ import os
 import numpy as np
 from pylab import *
 import matplotlib.pyplot as plt
-import matrix_to_image_fn
-import dir_restore
 import time
 from tqdm import tqdm
+from image_generator_modules import matrix_to_image_fn
+from image_generator_modules import dir_restore
+
 converter_fn = matrix_to_image_fn.converter_fn
 dir_restore = dir_restore.dir_restore
 
