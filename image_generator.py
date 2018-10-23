@@ -12,11 +12,19 @@ dir_restore = dir_restore.dir_restore
 
 os.system('clear')
 
+MANUAL_MODE = True
+
 # MATRICI DA GENERARE
-n_mat = 10                      # numerop di matrici da generare
+n_mat = 500                      # numerop di matrici da generare
 dimension = 50                  # dimensione delle matrici da generare
 delta = 40.0                     # parametro delta per la creazione delle matrici
 name_mat = 'image_generator'    # nome da assegnare alle matrici una volta generate
+
+if MANUAL_MODE == True:
+    n_mat = int(input('Numero di matrici da generare: '))
+    dimension = int(input('Dimensione delle singole matrici: '))
+    delta = int(input('Valore del parametro Delta: '))
+    print('\n')
 
 # NOME DEI FILE CONVERTITI IN .PNG
 name_img = 'data'
@@ -53,7 +61,8 @@ print('\nTrasformo le matrici in immagini .png')
 for i in tqdm(range(1, n_mat+1)):
     line = (converter_fn(
                 path = path + '2_reshaped_dataset/' + '2_' + name_mat + '_' + str(i) + '_reshaped.txt',
-                file_name = path + '3_image_dataset/' + '3_' + name_mat + '_' + str(i) + '.png'
+                file_name = path + '3_image_dataset/' + '3_' + name_mat + '_' + str(i) + '.png',
+                name = name_mat + '_' + str(i) + '.png'
                 ))
     log.write(line + '\n')
 
