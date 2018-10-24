@@ -116,23 +116,20 @@ CLI_EXTRA_DOC = r"""
 """
 
 
-def main(fp=sys.stderr, argv=None):
+def main(fp=sys.stderr):
     """
     Paramters (internal use only)
     ---------
     fp  : file-like object for tqdm
-    argv  : list (default: sys.argv[1:])
     """
-    if argv is None:
-        argv = sys.argv[1:]
     try:
-        log = argv.index('--log')
+        log = sys.argv.index('--log')
     except ValueError:
         logLevel = 'INFO'
     else:
-        # argv.pop(log)
-        # logLevel = argv.pop(log)
-        logLevel = argv[log + 1]
+        # sys.argv.pop(log)
+        # logLevel = sys.argv.pop(log)
+        logLevel = sys.argv[log + 1]
     logging.basicConfig(
         level=getattr(logging, logLevel),
         format="%(levelname)s:%(module)s:%(lineno)d:%(message)s")
@@ -164,14 +161,14 @@ Options:
 """ + d.strip('\n') + '\n'
 
     # opts = docopt(d, version=__version__)
-    if any(v in argv for v in ('-v', '--version')):
+    if any(v in sys.argv for v in ('-v', '--version')):
         sys.stdout.write(__version__ + '\n')
         sys.exit(0)
-    elif any(v in argv for v in ('-h', '--help')):
+    elif any(v in sys.argv for v in ('-h', '--help')):
         sys.stdout.write(d + '\n')
         sys.exit(0)
 
-    argv = RE_SHLEX.split(' '.join(["tqdm"] + argv))
+    argv = RE_SHLEX.split(' '.join(["tqdm"] + sys.argv[1:]))
     opts = dict(zip(argv[1::2], argv[2::2]))
 
     log.debug(opts)
