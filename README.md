@@ -1,10 +1,27 @@
 # cnn_mnist_beta4.py
 
-* **cnn_mnist_*.py** è il file principale di riferimento.
+* **cnn_mnist_*.py** è il file principale di riferimento
 * **cnn_mnist_fn.py** contiene la funzione che crea il modello
-* **image_generator.py** è uno script che usa i moduli contenuti in **image_generator_modules**
+* **msdir** contiene tutti i file relativi allo script ms per generare simulazioni di dati genetici (versione da aggiornare)
+* **image_generator.py** è uno script che usa i moduli contenuti in `/image_generator_modules`
 * **tqdm** contiene dei moduli per creare barre di caricamento
 * **MNIST_data** contiene i dataset di trining e testing
 
+**cnn_mnist_*.py** è la funzione principale per l'esecuzione del modello. All'avvio per prima cosa richiede l'inserimento della modalità di avvio che può essere `TRAIN`, `TEST`, `BOTH`;
 
-Lo script **image_generator.py** usa il modulo **dir_restore.py** per preparare le cartelle che conterranno tutti i dati del dataset divisi per tipo mentre il modulo **matrix_to_image.py** viene usato all’interno dello script per convertire le singole matrici in file .png.
+1. Modalità `TRAIN`: Per ora il programma chiede solamente il nunmero di epoche, gli altri parametri sono costanti all'interno del codice. Una volta inserito il numero di epoche verrà avviato il training dell'allenamento che darò info in modo periodico sull'avanzamento dell'allenamento. Verrà anche segnalato con una checkbox quando l'accuratezza della rete è migliorata. Per esempio, se alleniamo il modello con 50 epoche avremo un output del tipo:
+
+```
+20      0.8828          [X]
+23      0.9141          [X]
+28      0.9531          [X]
+39      0.9531          [X]
+40      0.8984          [ ]
+44      0.9531          [X]
+45      0.9531          [X]
+```
+
+**image_generator** all'avvio prende in input le seguenti informazioni con cui è possibile gestire in che modo verranno generate le matrici:
+* Numero di matrici da generare;
+* Dimensione delle singole matrici;
+* Valore del parametro Delta.

@@ -1,4 +1,4 @@
-""" 
+"""
 # Create a dataset tensor from the images and the labels
 dataset = tf.data.Dataset.from_tensor_slices(
     (mnist.train.images, mnist.train.labels))
@@ -29,8 +29,7 @@ from tqdm import tqdm
 
 os.system('clear')
 
-MODE='TRAIN'
-# MODE='TEST'
+MODE = str(input('Seleziona in che modo vuoi eseguire il modello (TRAIN, TEST, BOTH)'))
 
 if sys.platform == 'linux':
     print('Programma avviato su Cluster:\n')
@@ -44,7 +43,7 @@ else:
     TensorBoard_path = "/Users/matteo/Documents/GitHub/Cnn_Genetic/cnn_genetic/TensorBoard"
 
 MNIST = input_data.read_data_sets(MNIST_path, one_hot=True)
- 
+
 #Training Parameters
 learning_rate = 0.001
 batch_size = 128
@@ -74,12 +73,12 @@ dataset = dataset.batch(batch_size)
 dataset = dataset.prefetch(batch_size)
 
 # Create an iterator over the dataset
-# prende il dataset 
+# prende il dataset
 iterator = dataset.make_initializable_iterator()
 
 
 def cnn_model_fn(x):
-    
+
     # INPUT LAYER
     with tf.name_scope('input_layer') as scope:
         input_layer = tf.reshape(x, [-1, 28, 28, 1])
@@ -140,7 +139,7 @@ def cnn_model_fn(x):
     # AGGIUNGO L'OPERAZIONE DI DROPOUT
     with tf.name_scope('Dropout'):
         dropout = tf.layers.dropout(
-            inputs=dense_relu, 
+            inputs=dense_relu,
             rate=0.4,
             training = MODE == tf.estimator.ModeKeys.TRAIN
         )
@@ -182,7 +181,7 @@ init = tf.global_variables_initializer()
 best_acc=0
 
 with tf.Session() as sess:
-    
+
     sess.run(iterator.initializer)
     sess.run(init)
     saver = tf.train.Saver()
@@ -196,7 +195,7 @@ with tf.Session() as sess:
 
             sess.run(train_op)
             los, acc= sess.run([loss, accuracy])
-            
+
             if step % 20 == 0  or acc >= 0.90:
                 if acc >= best_acc:
                     check = '[X]'
@@ -205,9 +204,9 @@ with tf.Session() as sess:
                     saver.save(sess,save_path)
                 elif step %20 == 0:
                     print(str(step) + '\t' + '%.4f' % acc + '\t\t' + check)
-        
+
         writer = tf.summary.FileWriter(TensorBoard_path, sess.graph)
-    
+
     elif MODE=='TEST':
         os.system('clear')
         print("TESTING MODE")
@@ -217,7 +216,7 @@ with tf.Session() as sess:
         # test the model
         print("Testing Accuracy:"+str(sess.run(accuracy)))
         print("Testing finished")
-    
+
     else:
         os.system('clear')
         print('\nLa modalità inserita non è corretta.\n')
