@@ -6,5 +6,14 @@
 
 .vscode
 
+/__pycache__
+
+/MNIST_data
+
+/old_versions
+
+/logdir
+
+
 
 
