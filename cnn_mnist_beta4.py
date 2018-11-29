@@ -18,26 +18,33 @@ from __future__ import division
 from __future__ import print_function
 from tensorflow.examples.tutorials.mnist import input_data
 
+
 # IMPORTS
 import numpy as np
 import tensorflow as tf
+import matplotlib.pyplot as plt
 import os
+import sys
+from tqdm import tqdm
 
 os.system('clear')
 
 MODE='TRAIN'
 # MODE='TEST'
 
-USER='Matteo'
-#USER='Giacomo'
+if sys.platform == 'linux':
+    print('Programma avviato su Cluster:\n')
+    MNIST_path = '/home/mdonato/MNIST'
+    save_path = '/home/mdonato/Checkpoints/model.ckpt'
+    TensorBoard_path = "/home/mdonato/TensorBoard"
+else:
+    print('Programma avviato su Mac:\n')
+    MNIST_path = '/Users/matteo/Documents/GitHub/Cnn_Genetic/cnn_genetic/MNIST_data'
+    save_path = "/Users/matteo/.TensorFlow_Data/model.ckpt"
+    TensorBoard_path = "/Users/matteo/Documents/GitHub/Cnn_Genetic/cnn_genetic/TensorBoard"
 
-if USER == 'Matteo':
-    MNIST = input_data.read_data_sets("Users/matteo/desktop/cnn_save/data/mnist/", one_hot=True)
-    save_path = "/Users/matteo/.TensorFlow_Data/model.ckpt" 
-elif USER == 'Giacomo':
-    MNIST = input_data.read_data_sets("/data/mnist/", one_hot=True)
-    save_path = "C:\\Users\\Giacomo\\Documents\\Checkpoints\\model.ckpt"
-
+MNIST = input_data.read_data_sets(MNIST_path, one_hot=True)
+ 
 #Training Parameters
 learning_rate = 0.001
 batch_size = 128
@@ -48,8 +55,15 @@ inputs = 784
 classes = 10
 dropout = 0.75
 
+epochs = int(input('Inserisci il numero di epoche da eseguire: '))
+print('\n')
+
 dataset = tf.data.Dataset.from_tensor_slices(
-    (MNIST.train.images, MNIST.train.labels))
+    (MNIST.train.images, MNIST.train.labels)
+    )
+#print(MNIST.train.labels)
+#print(MNIST.train.images)
+
 # Automatically refill the data queue when empty
 dataset = dataset.repeat()
 # Create batches of data
@@ -140,7 +154,7 @@ def cnn_model_fn(x):
 
     return logits
 
-# metto in X e Y batch_size elementi con le rispettive lagles
+# metto in X e Y batch_size elementi con le rispettive labels
 X, Y = iterator.get_next()
 
 # RICHIAMO LA FUNZIONE
@@ -192,7 +206,7 @@ with tf.Session() as sess:
                 elif step %20 == 0:
                     print(str(step) + '\t' + '%.4f' % acc + '\t\t' + check)
         
-        writer = tf.summary.FileWriter("/Users/matteo/Documents/TensorBoard", sess.graph)
+        writer = tf.summary.FileWriter(TensorBoard_path, sess.graph)
     
     elif MODE=='TEST':
         os.system('clear')
