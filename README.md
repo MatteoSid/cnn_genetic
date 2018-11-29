@@ -2,7 +2,7 @@
 I file e le cartelle principali sono:
 * **cnn_mnist_*.py** è la funzione principale di riferimento;
 * **cnn_mnist_fn.py** contiene la funzione che crea il modello;
-* **msdir** contiene tutti i file relativi allo script ms per generare simulazioni di dati genetici (versione da aggiornare);
+* **msdir** contiene tutti i file relativi allo script `ms` per generare simulazioni di dati genetici (versione da aggiornare);
 * **image_generator.py** è uno script che usa i moduli contenuti in `/image_generator_modules` per creare immagini ti training;
 * **tqdm** contiene dei moduli per creare barre di caricamento;
 * **MNIST_data** è una cartella che contiene i dataset di training e testing.
