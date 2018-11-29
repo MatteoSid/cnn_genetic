@@ -7,7 +7,7 @@ I file e le cartelle principali sono:
 * **tqdm** contiene dei moduli per creare barre di caricamento;
 * **MNIST_data** è una cartella che contiene i dataset di training e testing.
 
-##cnn_mnist_*.py
+## cnn_mnist_*.py
 
 È la funzione principale per l'esecuzione del modello. All'avvio per prima cosa richiede l'inserimento della modalità di avvio che può essere `TRAIN`, `TEST`, `BOTH`.
 
@@ -15,13 +15,13 @@ I file e le cartelle principali sono:
 
 ```
 TRAINING MODE
-20      0.8828          [X]
-23      0.9141          [X]
-28      0.9531          [X]
-39      0.9531          [X]
+16      0.9141          [X]
+20      0.8516          [ ]
+22      0.9141          [X]
+31      0.9375          [X]
 40      0.8984          [ ]
-44      0.9531          [X]
-45      0.9531          [X]
+41      0.9375          [X]
+42      0.9531          [X]
 ```
 con log ogni 20 epoche oppure ogni volta che l'accuratezza è migliorata.
 
@@ -36,7 +36,7 @@ Testing finished
 * Modalità `BOTH`: Esegue entrambe le modalità facendo prima il `TRAIN` e poi il `TEST`.
 
 
-##image_generator 
+## image_generator 
 All'avvio prende in input le seguenti informazioni con cui è possibile gestire in che modo verranno generate le matrici:
 * Numero di matrici da generare;
 * Dimensione delle singole matrici;

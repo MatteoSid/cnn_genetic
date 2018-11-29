@@ -1,18 +1,13 @@
 /dataset
 /Users/matteo/desktop
-
 /TensorBoard
 /old_verions
-
 .vscode
-
 /__pycache__
-
 /MNIST_data
-
 /old_versions
-
 /logdir
+/.TensorFlow_Data
 
 
 
