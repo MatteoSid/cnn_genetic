@@ -29,7 +29,7 @@ from tqdm import tqdm
 
 os.system('clear')
 
-MODE = str(input('Seleziona in che modo vuoi eseguire il modello (TRAIN, TEST, BOTH)'))
+MODE = str(input('Seleziona in che modo vuoi eseguire il modello (TRAIN, TEST, BOTH):\n'))
 
 if sys.platform == 'linux':
     print('Programma avviato su Cluster:\n')
