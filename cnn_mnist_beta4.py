@@ -29,20 +29,16 @@ from tqdm import tqdm
 
 os.system('clear')
 
-MODE = str(input('Seleziona in che modo vuoi eseguire il modello (TRAIN, TEST, BOTH):\n'))
-
 if sys.platform == 'linux':
     print('Programma avviato su Cluster:\n')
     MNIST_path = '/home/mdonato/MNIST'
     save_path = '/home/mdonato/Checkpoints/model.ckpt'
     TensorBoard_path = "/home/mdonato/TensorBoard"
-else:
+elif sys.platform == 'darwin':
     print('Programma avviato su Mac:\n')
     MNIST_path = '/Users/matteo/Documents/GitHub/Cnn_Genetic/cnn_genetic/MNIST_data'
-    save_path = "/Users/matteo/.TensorFlow_Data/model.ckpt"
+    save_path = "/Users/matteo/Documents/GitHub/Cnn_Genetic/cnn_genetic/.TensorFlow_Data/model.ckpt"
     TensorBoard_path = "/Users/matteo/Documents/GitHub/Cnn_Genetic/cnn_genetic/TensorBoard"
-
-MNIST = input_data.read_data_sets(MNIST_path, one_hot=True)
 
 #Training Parameters
 learning_rate = 0.001
@@ -54,9 +50,19 @@ inputs = 784
 classes = 10
 dropout = 0.75
 
+while True:
+    MODE = str(input('Seleziona in che modo vuoi eseguire il modello (TRAIN, TEST, BOTH):\n'))
+    if MODE=='TRAIN':
+        break
+    if MODE=='TEST':
+        break
+    if MODE=='BOTH':
+        break
+
 epochs = int(input('Inserisci il numero di epoche da eseguire: '))
 print('\n')
 
+MNIST = input_data.read_data_sets(MNIST_path, one_hot=True)
 dataset = tf.data.Dataset.from_tensor_slices(
     (MNIST.train.images, MNIST.train.labels)
     )
