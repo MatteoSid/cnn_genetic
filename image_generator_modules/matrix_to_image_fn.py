@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 mpl.rcParams['figure.max_open_warning'] = 0
 
+
 os.system('clear')
 
 def converter_fn(path, file_name, name):
@@ -30,7 +31,7 @@ def converter_fn(path, file_name, name):
             array.append(innerarray)
             innerarray=[]
     #log = 'Immagine salvata alla posizione: ' + path + 'image_from_' + file_name + '\nL\'immagine ha dimensione[h,w]=[' + str(h) + ', ' + str(w) + '].\n'
-    log = name + ':\n' + 'L\'immagine ha dimensione[h,w]=[' + str(h) + ', ' + str(w) + '].\n'
+    log = name + ':\n' + 'L\'immagine ha dimensione[w,h]=[' + str(w) + ', ' + str(h) + '].\n'
     #print('L\'immagine ha dimensione[h,w]=[' + str(h) + ', ' + str(w) + '].\n')
     array=np.asarray(array)
 

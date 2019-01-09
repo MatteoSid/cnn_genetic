@@ -25,6 +25,15 @@ if MANUAL_MODE == True:
     n_mat = int(input('Numero di matrici da generare: '))
     dimension = int(input('Dimensione delle singole matrici: '))
     delta = int(input('Valore del parametro Delta: '))
+
+    while(1):
+        square = input('Vuoi che la matrice sia quadrata? [S/N]: ')
+
+        if square == 'S':
+            break
+        elif square == 'N':
+            break
+  
     print('\n')
 
 # NOME DEI FILE CONVERTITI IN .PNG
@@ -41,7 +50,13 @@ for i in tqdm(range(1, n_mat+1)):
 
 
     # Uso ms per generare le matrici in msdir/dataset/1_original_dataset/
-    os.system('cd msdir ; ./ms ' + str(dimension) + ' 1 -t ' + str(delta) +' > ' + path + '/1_original_dataset/' + '1_' + name_mat + '_' + str(i) + '.txt')
+    if square == 'N':
+        os.system('cd msdir ; ./ms ' + str(dimension) + ' 1 -t ' + str(delta) + ' > ' + path + '/1_original_dataset/' + '1_' + name_mat + '_' + str(i) + '.txt')
+        jump = 7
+    elif square == 'S':
+        os.system('cd msdir ; ./ms ' + str(dimension) + ' 1 -t ' + str(delta) + ' -s ' + str(dimension) + ' > ' + path + '/1_original_dataset/' + '1_' + name_mat + '_' + str(i) + '.txt')
+        jump = 8
+    
     row = 1
 
     # Apro l' n-esimo file .txt creato da ms
@@ -50,7 +65,7 @@ for i in tqdm(range(1, n_mat+1)):
         # Apro un file dove scrivere la matrice risistemata
         dest = open(path + '2_reshaped_dataset/' + '2_' + name_mat + '_' + str(i) + '_reshaped.txt', 'w')
         for line in fileobj: 
-            if row < 7:
+            if row < jump:
                 row = row+1
             elif len(line) > 5:
                 dest.write(line)
