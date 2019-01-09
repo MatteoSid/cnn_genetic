@@ -2,6 +2,12 @@
 
 Lo script **image_generator.py** usa il modulo **dir_restore.py** per preparare le cartelle che conterranno tutti i dati del dataset divisi per tipo mentre il modulo **matrix_to_image.py** viene usato all’interno dello script per convertire le singole matrici in file .png.
 
+Il programma chiede in input:
+* Numero di matrici da generare [int];
+* Dimensione delle singole matrici [int];
+* Valore del parametro Delta [flot];
+* Un carattere [S/N] per decidere se la matrice deve essere quadrata o no.
+
 **image_generator.py** crea le immagini con questa sequenza di istruzioni:
 1. Il modulo **dir_restore.py** controlla se è presente la struttura di cartelle necessaria al salvataggio dei file. Il modulo procede in questo modo:
 * Se è presente la ripulisco in modo da avere le cartelle vuote;
