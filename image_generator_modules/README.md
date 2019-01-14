@@ -7,7 +7,7 @@ Lo script **image_generator.py** usa il modulo **dir_restore.py** per preparare 
 Il programma chiede in input:
 * Numero di matrici da generare [int];
 * Dimensione delle singole matrici [int];
-* Un carattere [S/N] per decidere se generare ogni matrice con un Delta diverso (random) ogni volta oppure calcolare tutte le matrici con lo stesso Delta scelto dall'utente.
+* Un carattere [S/N] per decidere se generare ogni matrice con un Delta diverso (random) ogni volta oppure calcolare tutte le matrici con lo stesso Delta scelto dall'utente;
 * Valore del parametro Delta [flot];
 * Un carattere [S/N] per decidere se la matrice deve essere quadrata o no.
 
