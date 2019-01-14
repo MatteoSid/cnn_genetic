@@ -36,13 +36,18 @@ Testing finished
 * Modalità `BOTH`: Esegue entrambe le modalità facendo prima il `TRAIN` e poi il `TEST`.
 
 
-## image_generator 
-All'avvio prende in input le seguenti informazioni con cui è possibile gestire in che modo verranno generate le matrici:
-* Numero di matrici da generare;
-* Dimensione delle singole matrici;
-* Valore del parametro Delta.
+## image_generator_modules
+
+**image_generator_modules** contiene tutti i moduli necessari al funzionamento di **image_generator**.
 
 Lo script **image_generator.py** usa il modulo **dir_restore.py** per preparare le cartelle che conterranno tutti i dati del dataset divisi per tipo mentre il modulo **matrix_to_image.py** viene usato all’interno dello script per convertire le singole matrici in file .png.
+
+Il programma chiede in input:
+* Numero di matrici da generare [int];
+* Dimensione delle singole matrici [int];
+* Un carattere [S/N] per decidere se generare ogni matrice con un Delta diverso (random) ogni volta oppure calcolare tutte le matrici con lo stesso Delta scelto dall'utente.
+* Valore del parametro Delta [flot];
+* Un carattere [S/N] per decidere se la matrice deve essere quadrata o no.
 
 **image_generator.py** crea le immagini con questa sequenza di istruzioni:
 1. Il modulo **dir_restore.py** controlla se è presente la struttura di cartelle necessaria al salvataggio dei file. Il modulo procede in questo modo:

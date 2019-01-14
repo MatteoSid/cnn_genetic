@@ -4,6 +4,7 @@ import numpy as np
 from pylab import *
 import matplotlib.pyplot as plt
 import time
+import random
 from tqdm import tqdm
 from image_generator_modules import matrix_to_image_fn
 from image_generator_modules import dir_restore
@@ -24,7 +25,10 @@ name_mat = 'image_generator'    # nome da assegnare alle matrici una volta gener
 if MANUAL_MODE == True:
     n_mat = int(input('Numero di matrici da generare: '))
     dimension = int(input('Dimensione delle singole matrici: '))
-    delta = int(input('Valore del parametro Delta: '))
+
+    delta_flag = input('Delta random? [S/N]: ')
+    if delta_flag == 'N':
+        delta = int(input('Valore del parametro Delta: '))
 
     while(1):
         square = input('Vuoi che la matrice sia quadrata? [S/N]: ')
@@ -47,7 +51,9 @@ dir_restore(path=path)
 print('\nGenero i dataset e ne estraggo le matrici')
 # GENERO LE MATRICI IN FORMATO .TXT
 for i in tqdm(range(1, n_mat+1)):
-
+    
+    if delta_flag == 'S':
+        delta = random.randint(1,100)
 
     # Uso ms per generare le matrici in msdir/dataset/1_original_dataset/
     if square == 'N':
