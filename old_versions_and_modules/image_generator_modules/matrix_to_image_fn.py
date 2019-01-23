@@ -20,6 +20,7 @@ def converter_fn(path, file_name, name):
     w=0
     h=0
 
+    # calcolo altezza e larghezza dell'immagine
     with open(path, "r") as fileobj:
         for line in fileobj:  
             w=0
