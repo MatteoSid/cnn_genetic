@@ -6,7 +6,7 @@ I file e le cartelle principali sono:
 * **MNIST_data** è una cartella che contiene i dataset di training e testing.
 
 ---
-## cnn_mnist_*.py
+## cnn_mnist_beta#.py
 
 È la funzione principale per l'esecuzione del modello. All'avvio per prima cosa richiede l'inserimento della modalità di avvio che può essere `TRAIN`, `TEST`, `BOTH`.
 
