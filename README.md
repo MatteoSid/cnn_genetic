@@ -1,12 +1,12 @@
-# cnn_mnist_beta*.py
+# cnn_mnist_beta#.py
 I file e le cartelle principali sono:
-* **cnn_mnist_beta*.py** è la funzione principale di riferimento;
+* **cnn_mnist_beta#.py** è la funzione principale di riferimento;
 * **cnn_mnist_fn.py** contiene la funzione che crea il modello (usata nelle vecchie versioni, deve ancora essere implementata nell'ultima versine);
 * **dataset_creator** contiene uno script che usa ms2raster.py ed altri moduli per creare dataset di immagini già classificate e divise per tipo per eseguire training e test della rete.
 * **MNIST_data** è una cartella che contiene i dataset di training e testing.
 
 ---
-## cnn_mnist_*.py
+## cnn_mnist_beta#.py
 
 È la funzione principale per l'esecuzione del modello. All'avvio per prima cosa richiede l'inserimento della modalità di avvio che può essere `TRAIN`, `TEST`, `BOTH`.
 
