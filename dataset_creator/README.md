@@ -15,7 +15,28 @@ In caso affermativo vengono create le rispettive cartelle e viene usata la funzi
 
 Alla fine di tutto il processo usiamo la funzione **clean_tree()**, sempre contenuta all'interno del modulo **foldertreemng.py**, per eliminare tutti i file che non servono più o che sono presenti più volte inutilmente.
 
-**-> I DATI VENGONO SOVRASCRITTI AD OGNI ESECUZIONE <-**
+**Esempio di schermata iniziale e input:**
+````
+Path corrente: /home/mdonato/dataset_creator/
+
+Comando generico:
+python3 ms2raster.py -bp 10000 -s 2 -l selection -selstr 0.005 -p /home/mdonato/dataset_creator/ -i 24
+
+-bp:		lunghezza matrice
+-s:		numero dimatrici da generare
+-l:		modalità
+-selestr:	ntensita' della selezione si puo' controllare con -selstr (quando -l e' neutral, non viene considerata)
+-p:		path della cartella contenente i moduli necessari
+-i:	
+
+Avviare in modalità SELECTION[S], NEUTRAL[N] o entrambi[B]? B
+Inserire grandezza singole matrici (-bp): 1000
+Inserire quante matrici per il training set (-s): 300 
+Inserire quante matrici per il test set (-s): 100 
+Inserire un valore per selstr (-selstr): 0.005
+```
+
+**->IMPORTANTE:  I DATI VENGONO SOVRASCRITTI AD OGNI ESECUZIONE <-**
 
 ## foldertreemng.py
 Il modulo **foldertreemng.py** contiene due funzioni per la gestione dei file e delle cartelle necessari al corretto funzionamento del programma. 
