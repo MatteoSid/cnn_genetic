@@ -73,7 +73,7 @@ if input('\nVuoi trasformare le matrici in immagini? [Y]/[N]: ') == 'Y':
         os.mkdir(path + 'SELECTION/TRAIN_IMG')
         os.mkdir(path + 'SELECTION/TEST_IMG')
 
-        print('\nTrasformo il training set in immagini...')
+        print('\nTrasformo il selection training set in immagini...')
         for i in tqdm(range(1, n_train+1)):
             # SELECTION - TRAIN
             path_tmp_strain = path + 'SELECTION/TRAIN/' + str(i) + '.selection.sim'
@@ -84,7 +84,7 @@ if input('\nVuoi trasformare le matrici in immagini? [Y]/[N]: ') == 'Y':
                             file_name = path + 'SELECTION/TRAIN_IMG/' + str(i) + '.selection.png',
                             )
 
-        print('\nTrasformo il test set in immagini...')
+        print('\nTrasformo il selection test set in immagini...')
         for i in tqdm(range(1, n_test+1)):
             # SELECTION - TEST
             path_tmp_stest = path + 'SELECTION/TEST/' + str(i) + '.selection.sim'
@@ -98,7 +98,7 @@ if input('\nVuoi trasformare le matrici in immagini? [Y]/[N]: ') == 'Y':
         os.mkdir(path + 'NEUTRAL/TRAIN_IMG')
         os.mkdir(path + 'NEUTRAL/TEST_IMG')
 
-        print('\nTrasformo il training set in immagini...')
+        print('\nTrasformo il neutral training set in immagini...')
         for i in tqdm(range(1, n_train+1)):
             # NEUTRAL - TRAIN
             path_tmp_ntrain = path + 'NEUTRAL/TRAIN/' + str(i) + '.neutral.sim'
@@ -109,7 +109,7 @@ if input('\nVuoi trasformare le matrici in immagini? [Y]/[N]: ') == 'Y':
                             file_name = path + 'NEUTRAL/TRAIN_IMG/' + str(i) + '.neutral.png',
                             )
 
-        print('\nTrasformo il test set in immagini...')
+        print('\nTrasformo il neutral test set in immagini...')
         for i in tqdm(range(1, n_test+1)):
             # NEUTRAL - TEST
             path_tmp_ntest = path + 'NEUTRAL/TEST/' + str(i) + '.neutral.sim'
