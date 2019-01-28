@@ -51,10 +51,9 @@ Trasformo il training set in immagini...
 
 Trasformo il test set in immagini...
 100%|█████████████████████████████████████████████████████| 100/100 [00:05<00:00, 19.95it/s]
-
 ```
 
-**->IMPORTANTE:  I DATI VENGONO SOVRASCRITTI AD OGNI ESECUZIONE <-**
+<center> **->IMPORTANTE:  I DATI VENGONO SOVRASCRITTI AD OGNI ESECUZIONE <-** </center>
 
 ## foldertreemng.py
 Il modulo **foldertreemng.py** contiene due funzioni per la gestione dei file e delle cartelle necessari al corretto funzionamento del programma. 
