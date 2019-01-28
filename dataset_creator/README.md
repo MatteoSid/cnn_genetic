@@ -16,7 +16,7 @@ In caso affermativo vengono create le rispettive cartelle e viene usata la funzi
 Alla fine di tutto il processo usiamo la funzione **clean_tree()**, sempre contenuta all'interno del modulo **foldertreemng.py**, per eliminare tutti i file che non servono più o che sono presenti più volte inutilmente.
 
 **Esempio di schermata iniziale e input:**
-````
+```
 Path corrente: /home/mdonato/dataset_creator/
 
 Comando generico:
@@ -34,6 +34,24 @@ Inserire grandezza singole matrici (-bp): 1000
 Inserire quante matrici per il training set (-s): 300 
 Inserire quante matrici per il test set (-s): 100 
 Inserire un valore per selstr (-selstr): 0.005
+```
+Una volta avviato lo script con i parametri generati verranno creati tutti i dataset in formato di testo e alla fine verrà chiesto se si vuole convertire le matrici generate in immagini.
+
+```
+Vuoi trasformare le matrici in immagini? [Y]/[N]: Y
+
+Trasformo il training set in immagini...
+100%|█████████████████████████████████████████████████████| 300/300 [00:10<00:00, 28.37it/s]
+
+Trasformo il test set in immagini...
+100%|█████████████████████████████████████████████████████| 100/100 [00:03<00:00, 26.65it/s]
+
+Trasformo il training set in immagini...
+100%|█████████████████████████████████████████████████████| 300/300 [00:13<00:00, 21.53it/s]
+
+Trasformo il test set in immagini...
+100%|█████████████████████████████████████████████████████| 100/100 [00:05<00:00, 19.95it/s]
+
 ```
 
 **->IMPORTANTE:  I DATI VENGONO SOVRASCRITTI AD OGNI ESECUZIONE <-**
