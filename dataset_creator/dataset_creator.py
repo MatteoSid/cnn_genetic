@@ -15,8 +15,7 @@ def ms(bp, s, l, selestr=0.005, path='', i=24):
     comand = 'cd ' + path + ' ; python3 ms2raster.py -bp ' + str(bp) + ' -s ' + str(s) + ' -l ' + l + ' -selstr ' + str(selestr) + ' -p ' + path + '/ -i ' + str(i)
     print('comand: ' + comand)
     os.system(comand)
-
-os.system('rm -rf *.sim')
+    
 os.system('clear')
 
 

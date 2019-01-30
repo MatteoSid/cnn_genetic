@@ -57,7 +57,7 @@ Nel caso in cui si decida di trasformare il dataset appena creato in immagini ve
 ```
 Vuoi tenere le matrici in formato testuale? [Y]/[N]: N
 ```
-L'ultima opzione è temporanea e serve a me per scaricare comodamente il dataset da cluster e serve a creare un archivio della cartella `DATASET` che contiene il dataset appena creato. Il programma chiede che nome dare all'archivio in modo da poter creare più archivi senza che questi vengano sovrascritti.
+L'ultima opzione è temporanea e serve a me per scaricare comodamente il dataset da cluster e serve a creare un archivio della cartella `DATASET` che contiene il dataset appena creato. Il programma chiede anche il nome dare all'archivio in modo da poter creare più archivi senza che questi vengano sovrascritti.
 ```
 Vuoi comprimere il dataset appena creato? [Y]/[N]: Y
 Inserisci un nome da dare al file compresso: dataset_1
