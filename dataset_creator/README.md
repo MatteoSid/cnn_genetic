@@ -1,8 +1,8 @@
 # dataset_creator
-La cartella `dataset_creator` contiene lo script **matrix_to_image.py** che utilizza lo script **ms2raster.py** per generare le metrici sottoforma di file di testo con matrici di zeri e uni e li converte in immagini. Per la generazione delle matrici sootoforma di file di testo si usa **ms2raster.py** che a sua volta usa un output modificato di **ms**. Oltre a questi script principali sono presenti anche tutti i moduli per il corretto funzionamento.
+La cartella `dataset_creator` contiene lo script **matrix_to_image.py** che utilizza lo script **ms2raster.py** per generare file di testo con matrici di zeri e uni e li converte in immagini `.png`. Per la generazione delle matrici sottoforma di file di testo si usa **ms2raster.py** che a sua volta usa un output modificato di **ms** e **mssel**. Oltre a questi script principali sono presenti anche tutti i moduli per il corretto funzionamento.
 
 ## dataset_creator.py
-Per prima cosa elimina ogni traccia di file `*.sim` ovvero ogni file del dataset (da togliere). Dopodiché si ricava il path della cartella di esecuzione che servirà per muoversi all'interno di tutte le cartelle che verranno generate in seguito e per il corretto funzionamento di **ms2raster.py** che richiede il path corrente come input. Vengono poi chiesti tutti i parametri in input:
+Per prima cosa si ricava il path della cartella di esecuzione che servirà per muoversi all'interno di tutte le cartelle che verranno generate in seguito e per il corretto funzionamento di **ms2raster.py** che richiede il path corrente come input. Vengono poi chiesti tutti i parametri in input:
 * Quale dataset creare tra `SELECTION [S]`, `NEUTRAL [N]` O entrambi `[B]`;
 * Grandezza delle singole matrici;
 * Numero di matrici da generare rispettivamente per il `TRAINING SET` e per il `TEST SET`;
@@ -36,6 +36,7 @@ Inserire quante matrici per il test set (-s): 100
 Inserire un valore per selstr (-selstr): 0.005
 ```
 Una volta avviato lo script con i parametri generati verranno creati tutti i dataset in formato di testo e alla fine verrà chiesto se si vuole convertire le matrici generate in immagini.
+<p align=center><strong> ->IMPORTANTE:  I DATI VENGONO SOVRASCRITTI AD OGNI ESECUZIONE <- </strong></p>
 
 ```
 Vuoi trasformare le matrici in immagini? [Y]/[N]: Y
@@ -52,12 +53,25 @@ Trasformo il neutral training set in immagini...
 Trasformo il neutral test set in immagini...
 100%|█████████████████████████████████████████████████████| 100/100 [00:05<00:00, 19.95it/s]
 ```
-
-<p align=center><strong> ->IMPORTANTE:  I DATI VENGONO SOVRASCRITTI AD OGNI ESECUZIONE <- </strong></p>
-
+Nel caso in cui si decida di trasformare il dataset appena creato in immagini verrà chiesto se si desidera tenere solo le immagini o anche il dataset originale in formato testuale. In caso di risposta negativa le cartelle contenenti i file di testo con le matrici verranno eliminati.
+```
+Vuoi tenere le matrici in formato testuale? [Y]/[N]: N
+```
+L'ultima opzione è temporanea e serve a me per scaricare comodamente il dataset da cluster e serve a creare un archivio della cartella `DATASET` che contiene il dataset appena creato. Il programma chiede che nome dare all'archivio in modo da poter creare più archivi senza che questi vengano sovrascritti.
+```
+Vuoi comprimere il dataset appena creato? [Y]/[N]: Y
+Inserisci un nome da dare al file compresso: dataset_1
+DATASET/
+DATASET/SELECTION/
+DATASET/SELECTION/TRAIN_IMG/
+DATASET/SELECTION/TEST_IMG/
+DATASET/NEUTRAL/
+DATASET/NEUTRAL/TRAIN_IMG/
+DATASET/NEUTRAL/TEST_IMG/
+```
 ## foldertreemng.py
 Il modulo **foldertreemng.py** contiene due funzioni per la gestione dei file e delle cartelle necessari al corretto funzionamento del programma. 
-* **create_tree(path, mode)** in base alla modalità selezinoata crea la struttura di cartelle con all'interno i file necessari per l'esecuzione di **ms2raster.py** presi dal file `ms2raster.zip` presente nella cartella principale che viene estratto in ogni ultima sottocartella creata. Inoltre, all'interno della funzione, è presente anche un controllo che elimina tutti i file e le cartelle delle vecchie esecuzioni e prepara le cartelle e i file per l'esecuzione corrente.
+* **create_tree(path, mode)** in base alla modalità selezinoata crea la cartella `DATASET` e prepara la struttura di cartelle con all'interno i file necessari per l'esecuzione di **ms2raster.py** presi dal file `ms2raster.zip` presente nella cartella principale che viene estratto in ogni ultima sottocartella creata. Inoltre, all'interno della funzione, è presente anche un controllo che elimina tutti i file e le cartelle delle vecchie esecuzioni e prepara le cartelle e i file per l'esecuzione corrente.
 * **clean_tree(path, mode)** ripulisce le cartelle contenenti il dataset dai file non più necessari che erano stati estratti in precedenza da `ms2raster.zip`.
 
 ## matrix_to_image_fn.py
