@@ -31,9 +31,9 @@ print('-p:\t\tpath della cartella contenente i moduli necessari')
 print('-i:\t')
 
 mod = input('\nAvviare in modalità SELECTION[S], NEUTRAL[N] o entrambi[B]? ')
-n_mat = int(input('Inserire grandezza singole matrici (-bp): '))
-n_train = int(input('Inserire quante matrici per il training set (-s): '))
-n_test = int(input('Inserire quante matrici per il test set (-s): '))
+n_mat = input('Inserire grandezza singole matrici (-bp): ')
+n_train = input('Inserire quante matrici per il training set (-s): ')
+n_test = input('Inserire quante matrici per il test set (-s): ')
 selstr = input('Inserire un valore per selstr (-selstr): ')
 
 create_tree(
@@ -42,23 +42,32 @@ create_tree(
     )
 
 os.system('clear')
+
+log = open(path + 'DATASET/log.txt', 'w')
+log = open(path + 'DATASET/log.txt', 'a')
+log.write('Il dataset contiene:\n')
+log.write('-')
     
 if mod == 'S' or mod == 'B':
     comand_train = 'cd ' + path + 'DATASET/SELECTION/TRAIN ; python3 ms2raster.py -bp ' + str(n_mat) + ' -s ' + str(n_train) + ' -l selection -selstr ' + selstr + ' -p ' + path + 'DATASET/SELECTION/TRAIN/ -i +24'
-    print('[LOG:comand_train]: ' + comand_train)
+    # log.write('Comando usato per generare il selection train set:\n' + comand_train + '\n\n')
+    # print('[LOG:comand_train]: ' + comand_train)
     # os.system(comand_train)   
     
     comand_test = 'cd ' + path + 'DATASET/SELECTION/TEST ; python3 ms2raster.py -bp ' + str(n_mat) + ' -s ' + str(n_test) + ' -l selection -selstr ' + selstr + ' -p ' + path + 'DATASET/SELECTION/TEST/ -i +24'
-    print('\nLOG:comand_test]: ' + comand_test)
+    # log.write('Comando usato per generare il selection test set:\npython3 ms2raster.py - bp ' + str(n_mat) + ' - s ' + str(n_test) + ' - l selection - selstr ' + selstr + ' - p ' + path + 'DATASET/SELECTION/TEST / -i + 24\n\n')
+    # print('\nLOG:comand_test]: ' + comand_test)
     # os.system(comand_test)   
 
 if mod == 'N' or mod == 'B':
     comand_train = 'cd ' + path + 'DATASET/NEUTRAL/TRAIN ; python3 ms2raster.py -bp ' + str(n_mat) + ' -s ' + str(n_train) + ' -l neutral -selstr ' + selstr + ' -p ' + path + 'DATASET/NEUTRAL/TRAIN/ -i +24'
-    print('[LOG:comand_train]: ' + comand_train)
+    # log.write('Comando usato per generare il neutral train set:\n' + comand_train + '\n\n')
+    # print('[LOG:comand_train]: ' + comand_train)
     # os.system(comand_train)   
     
     comand_test = 'cd ' + path + 'DATASET/NEUTRAL/TEST ; python3 ms2raster.py -bp ' + str(n_mat) + ' -s ' + str(n_test) + ' -l neutral -selstr ' + selstr + ' -p ' + path + 'DATASET/NEUTRAL/TEST/ -i +24'
-    print('\nLOG:comand_test]: ' + comand_test)
+    # log.write('Comando usato per generare il neutral test set:\n' + comand_test + '\n\n')
+    # print('\nLOG:comand_test]: ' + comand_test)
     # os.system(comand_test)
 
 if input('\nVuoi trasformare le matrici in immagini? [Y]/[N]: ') == 'Y': 
