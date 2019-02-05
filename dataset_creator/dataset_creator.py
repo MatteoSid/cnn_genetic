@@ -28,7 +28,7 @@ print('-s:\t\tnumero dimatrici da generare')
 print('-l:\t\tmodalità')
 print("-selestr:\tntensita' della selezione si puo' controllare con -selstr (quando -l e' neutral, non viene considerata)")
 print('-p:\t\tpath della cartella contenente i moduli necessari')
-print('-i:\tnumero di individui presi in considerazione')
+print('-i:\t\tnumero di individui presi in considerazione')
 
 mod = input('\nAvviare in modalità SELECTION[S], NEUTRAL[N] o entrambi[B]? ')
 n_mat = input('Inserire grandezza singole matrici (-bp): ')
