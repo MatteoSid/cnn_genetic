@@ -69,6 +69,7 @@ DATASET/NEUTRAL/
 DATASET/NEUTRAL/TRAIN_IMG/
 DATASET/NEUTRAL/TEST_IMG/
 ```
+Durante l'esecuzione viene creato un file `log.txt` all'interno della cartella `DATASET` che contiene tutti i parametri usati per generare le matrici e i relativi comandi per **ms** ed **mssel**.
 ## foldertreemng.py
 Il modulo **foldertreemng.py** contiene due funzioni per la gestione dei file e delle cartelle necessari al corretto funzionamento del programma. 
 * **create_tree(path, mode)** in base alla modalità selezinoata crea la cartella `DATASET` e prepara la struttura di cartelle con all'interno i file necessari per l'esecuzione di **ms2raster.py** presi dal file `ms2raster.zip` presente nella cartella principale che viene estratto in ogni ultima sottocartella creata. Inoltre, all'interno della funzione, è presente anche un controllo che elimina tutti i file e le cartelle delle vecchie esecuzioni e prepara le cartelle e i file per l'esecuzione corrente.
