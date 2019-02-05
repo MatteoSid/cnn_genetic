@@ -27,7 +27,7 @@ python3 ms2raster.py -bp 10000 -s 2 -l selection -selstr 0.005 -p /home/mdonato/
 -l:		modalità
 -selestr:	ntensita' della selezione si puo' controllare con -selstr (quando -l e' neutral, non viene considerata)
 -p:		path della cartella contenente i moduli necessari
--i:	    numero di individui da considerare
+-i:	        numero di individui da considerare
 
 Avviare in modalità SELECTION[S], NEUTRAL[N] o entrambi[B]? B
 Inserire grandezza singole matrici (-bp): 1000
