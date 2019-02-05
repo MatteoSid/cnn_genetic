@@ -15,7 +15,7 @@ In caso affermativo vengono create le rispettive cartelle e viene usata la funzi
 
 Alla fine di tutto il processo usiamo la funzione **clean_tree()**, sempre contenuta all'interno del modulo **foldertreemng.py**, per eliminare tutti i file che non servono più o che sono presenti più volte inutilmente.
 
-**Esempio di schermata iniziale e input:**
+###Esempio di schermata iniziale e input:
 ```
 Path corrente: /home/mdonato/dataset_creator/
 
@@ -69,6 +69,7 @@ DATASET/NEUTRAL/
 DATASET/NEUTRAL/TRAIN_IMG/
 DATASET/NEUTRAL/TEST_IMG/
 ```
+###log.txt:
 Durante l'esecuzione viene creato un file `log.txt` all'interno della cartella `DATASET` che contiene tutti i parametri usati per generare le matrici e i relativi comandi per **ms** ed **mssel**.
 ## foldertreemng.py
 Il modulo **foldertreemng.py** contiene due funzioni per la gestione dei file e delle cartelle necessari al corretto funzionamento del programma. 
