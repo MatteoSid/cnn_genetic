@@ -142,10 +142,12 @@ if input('\nVuoi trasformare le matrici in immagini? [Y]/[N]: ') == 'Y':
 
         os.system('rm -r ' + path + 'DATASET/NEUTRAL/TEST')
         os.system('rm -r ' + path + 'DATASET/NEUTRAL/TRAIN')
-else:
-    clean_tree(path=path, mode=mod)
+    else:
+        clean_tree(path=path, mode=mod)
+
+log.close()
 
 if input('\nVuoi comprimere il dataset appena creato? [Y]/[N]: ') == 'Y':
     print(path)
     nome_archivio = input('Inserisci un nome da dare al file compresso: ')
-    os.system('tar zcvf ' + nome_archivio + '.tar.gz ' + path)
+    os.system('tar zcvf ' + nome_archivio + '.tar.gz DATASET')

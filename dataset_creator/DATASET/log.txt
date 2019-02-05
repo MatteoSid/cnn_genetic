@@ -1,22 +1,22 @@
 Caratteristiche del dataset:
 
 - Il dataset è stato eseguito creando le matrici sia in modalità SELECTION che NEUTRAL.
-- 50 matrici per il training (25 per tipo)
-- 20 matrici per il test (10 per tipo)
+- 500 matrici per il training (250 per tipo)
+- 10 matrici per il test (5 per tipo)
 - le singole matrici hanno un bp di 1000
-- l'intensità della selezione è 0.0005
+- l'intensità della selezione è 0.005
 - il numero di individui presi in considerazione è 24
 
 
 Comando usato per generare il selection train set:
-cd /Users/matteo/Documents/GitHub/Cnn_Genetic/cnn_genetic/dataset_creator/DATASET/SELECTION/TRAIN ; python3 ms2raster.py -bp 1000 -s 25 -l selection -selstr 0.0005 -p /Users/matteo/Documents/GitHub/Cnn_Genetic/cnn_genetic/dataset_creator/DATASET/SELECTION/TRAIN/ -i +24
+cd /Users/matteo/Documents/GitHub/Cnn_Genetic/cnn_genetic/dataset_creator/DATASET/SELECTION/TRAIN ; python3 ms2raster.py -bp 1000 -s 250 -l selection -selstr 0.005 -p /Users/matteo/Documents/GitHub/Cnn_Genetic/cnn_genetic/dataset_creator/DATASET/SELECTION/TRAIN/ -i +24
 
 Comando usato per generare il selection test set:
-cd /Users/matteo/Documents/GitHub/Cnn_Genetic/cnn_genetic/dataset_creator/DATASET/SELECTION/TEST ; python3 ms2raster.py -bp 1000 -s 10 -l selection -selstr 0.0005 -p /Users/matteo/Documents/GitHub/Cnn_Genetic/cnn_genetic/dataset_creator/DATASET/SELECTION/TEST/ -i +24
+cd /Users/matteo/Documents/GitHub/Cnn_Genetic/cnn_genetic/dataset_creator/DATASET/SELECTION/TEST ; python3 ms2raster.py -bp 1000 -s 5 -l selection -selstr 0.005 -p /Users/matteo/Documents/GitHub/Cnn_Genetic/cnn_genetic/dataset_creator/DATASET/SELECTION/TEST/ -i +24
 
 Comando usato per generare il neutral train set:
-cd /Users/matteo/Documents/GitHub/Cnn_Genetic/cnn_genetic/dataset_creator/DATASET/NEUTRAL/TRAIN ; python3 ms2raster.py -bp 1000 -s 25 -l neutral -selstr 0.0005 -p /Users/matteo/Documents/GitHub/Cnn_Genetic/cnn_genetic/dataset_creator/DATASET/NEUTRAL/TRAIN/ -i +24
+cd /Users/matteo/Documents/GitHub/Cnn_Genetic/cnn_genetic/dataset_creator/DATASET/NEUTRAL/TRAIN ; python3 ms2raster.py -bp 1000 -s 250 -l neutral -selstr 0.005 -p /Users/matteo/Documents/GitHub/Cnn_Genetic/cnn_genetic/dataset_creator/DATASET/NEUTRAL/TRAIN/ -i +24
 
 Comando usato per generare il neutral test set:
-cd /Users/matteo/Documents/GitHub/Cnn_Genetic/cnn_genetic/dataset_creator/DATASET/NEUTRAL/TEST ; python3 ms2raster.py -bp 1000 -s 10 -l neutral -selstr 0.0005 -p /Users/matteo/Documents/GitHub/Cnn_Genetic/cnn_genetic/dataset_creator/DATASET/NEUTRAL/TEST/ -i +24
+cd /Users/matteo/Documents/GitHub/Cnn_Genetic/cnn_genetic/dataset_creator/DATASET/NEUTRAL/TEST ; python3 ms2raster.py -bp 1000 -s 5 -l neutral -selstr 0.005 -p /Users/matteo/Documents/GitHub/Cnn_Genetic/cnn_genetic/dataset_creator/DATASET/NEUTRAL/TEST/ -i +24
 

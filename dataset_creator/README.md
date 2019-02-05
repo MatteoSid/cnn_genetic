@@ -53,8 +53,9 @@ Trasformo il neutral training set in immagini...
 Trasformo il neutral test set in immagini...
 100%|█████████████████████████████████████████████████████| 100/100 [00:05<00:00, 19.95it/s]
 ```
+Le matrici trasformate saranno immagini B/N di questo tipo:
+![Esempio](simple.png)
 Nel caso in cui si decida di trasformare il dataset appena creato in immagini verrà chiesto se si desidera tenere solo le immagini o anche il dataset originale in formato testuale. In caso di risposta negativa le cartelle contenenti i file di testo con le matrici verranno eliminati.
-<img src="/docs/logo.png" alt="My cool logo"/>
 ```
 Vuoi tenere le matrici in formato testuale? [Y]/[N]: N
 ```
