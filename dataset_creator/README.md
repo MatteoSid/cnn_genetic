@@ -54,6 +54,7 @@ Trasformo il neutral test set in immagini...
 100%|█████████████████████████████████████████████████████| 100/100 [00:05<00:00, 19.95it/s]
 ```
 Nel caso in cui si decida di trasformare il dataset appena creato in immagini verrà chiesto se si desidera tenere solo le immagini o anche il dataset originale in formato testuale. In caso di risposta negativa le cartelle contenenti i file di testo con le matrici verranno eliminati.
+<img src="/doc/lsogo.png" alt="My cool logo"/>
 ```
 Vuoi tenere le matrici in formato testuale? [Y]/[N]: N
 ```
