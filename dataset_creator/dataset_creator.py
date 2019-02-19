@@ -65,23 +65,23 @@ if mod == 'S' or mod == 'B':
     comand_train = 'cd ' + path + 'DATASET/SELECTION/TRAIN ; python3 ms2raster.py -bp ' + str(n_mat) + ' -s ' + str(int(n_train)) + ' -l selection -selstr ' + selstr + ' -p ' + path + 'DATASET/SELECTION/TRAIN/ -i +24'
     log.write('\n\nComando usato per generare il selection train set:\n' + comand_train + '\n\n')
     # print('[LOG:comand_train]: ' + comand_train)
-    # os.system(comand_train)   
+    os.system(comand_train)   
     
     comand_test = 'cd ' + path + 'DATASET/SELECTION/TEST ; python3 ms2raster.py -bp ' + str(n_mat) + ' -s ' + str(int(n_test)) + ' -l selection -selstr ' + selstr + ' -p ' + path + 'DATASET/SELECTION/TEST/ -i +24'
     log.write('Comando usato per generare il selection test set:\n' + comand_test + '\n\n')
     # print('\nLOG:comand_test]: ' + comand_test)
-    # os.system(comand_test)   
+    os.system(comand_test)   
 
 if mod == 'N' or mod == 'B':
     comand_train = 'cd ' + path + 'DATASET/NEUTRAL/TRAIN ; python3 ms2raster.py -bp ' + str(n_mat) + ' -s ' + str(int(n_train)) + ' -l neutral -selstr ' + selstr + ' -p ' + path + 'DATASET/NEUTRAL/TRAIN/ -i +24'
     log.write('Comando usato per generare il neutral train set:\n' + comand_train + '\n\n')
     # print('[LOG:comand_train]: ' + comand_train)
-    # os.system(comand_train)   
+    os.system(comand_train)   
     
     comand_test = 'cd ' + path + 'DATASET/NEUTRAL/TEST ; python3 ms2raster.py -bp ' + str(n_mat) + ' -s ' + str(int(n_test)) + ' -l neutral -selstr ' + selstr + ' -p ' + path + 'DATASET/NEUTRAL/TEST/ -i +24'
     log.write('Comando usato per generare il neutral test set:\n' + comand_test + '\n\n')
     # print('\nLOG:comand_test]: ' + comand_test)
-    # os.system(comand_test)
+    os.system(comand_test)
 
 if input('\nVuoi trasformare le matrici in immagini? [Y]/[N]: ') == 'Y': 
 
