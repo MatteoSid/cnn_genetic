@@ -70,7 +70,7 @@ def get_images(files_path, img_size_w, img_size_h, n_input, mode):
     # Carico il NEUTRAL dataset [1,0]
     files = [f for f in listdir(neutral_path) if isfile(join(neutral_path, f))] 
     log.write('\n\n\nCARICAMENTO NEUTRAL')
-    print('\nCarico il neutral dataset:')
+    print('\nCarico il NEUTRAL dataset:')
     for fl in tqdm(files):
         if fl != '.DS_Store':
 
@@ -112,7 +112,7 @@ def get_images(files_path, img_size_w, img_size_h, n_input, mode):
     log.write('\nimages_arr reshaped: ' + str(images_arr.shape) + '\n')
     log.write('\n\n\nLabels:\n\n' + str(label_arr))
     
-    log.write('\n\n' + str(np.array2string(images_arr, threshold=np.nan, max_line_width=np.nan)))
+    #log.write('\n\n' + str(np.array2string(images_arr, threshold=np.nan, max_line_width=np.nan)))
 
     #log.write('\n\nRESHAPED:\n' + str(images_arr))
     log.close()
