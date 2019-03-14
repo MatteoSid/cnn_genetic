@@ -37,7 +37,7 @@ Testing finished
 
 ---
 
-## get_images.py
+## get_images.py (da aggiornare alla versione più recente)
 È una funzione che serve per caricare il dataset per poi darlo come input alla rete neurale. La funzione prende in input:
 * `files_path`: una stringa che indica il percorso della cartella DATASET creata da **dataset_creator.py**;
 * `img_size_h`, `img_size_w`: due vaori che esprimono rispettivamente l'altezza e la larghezza delle immagini da caricare;
