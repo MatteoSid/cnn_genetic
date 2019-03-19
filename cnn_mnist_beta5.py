@@ -26,6 +26,9 @@ import matplotlib.pyplot as plt
 import os
 import sys
 from tqdm import tqdm
+import load_dataset
+get_images = load_dataset.get_images
+next_batch = load_dataset.next_batch
 
 import cnn_model_fn_v2
 cnn_model_fn = cnn_model_fn_v2.cnn_model_fn
@@ -46,7 +49,7 @@ elif sys.platform == 'darwin':
 
 #Training Parameters
 learning_rate = 0.001
-batch_size = 128
+batch_size = 12
 epochs = 100
 
 #HyperParameters
@@ -67,29 +70,25 @@ while True:
 epochs = int(input('Inserisci il numero di epoche da eseguire: '))
 print('\n')
 
-MNIST = input_data.read_data_sets(MNIST_path, one_hot=True)
-
-dataset = tf.data.Dataset.from_tensor_slices(
-    (MNIST.train.images, MNIST.train.labels)
-    )
-#print(MNIST.train.labels)
-#print(MNIST.train.images)
-
-# Automatically refill the data queue when empty
-dataset = dataset.repeat()
-# Create batches of data
-dataset = dataset.batch(batch_size)
-
-# Prefetch data for faster consumption
-# divido il dataset in batch_size
-dataset = dataset.prefetch(batch_size)
-
-# Create an iterator over the dataset
-# prende il dataset
-iterator = dataset.make_initializable_iterator()
+dataset_path = '/Users/matteo/Documents/GitHub/Cnn_Genetic/cnn_genetic/DATASET/'
+len_X, X, Y = get_images(
+    files_path=dataset_path,
+    img_size_h=1000,
+    img_size_w=48,
+    mode='TRAIN',
+    randomize=True
+)
 
 # metto in X e Y batch_size elementi con le rispettive labels
-X, Y = iterator.get_next()
+X, Y = next_batch(
+    total=len_X,
+    images=X,
+    labels=Y,
+    batch_size=batch_size,
+    index=0
+)
+
+print(str(X.shape))
 
 # RICHIAMO LA FUNZIONE
 logits = cnn_model_fn(X, MODE)
