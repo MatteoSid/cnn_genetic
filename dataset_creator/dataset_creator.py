@@ -1,12 +1,12 @@
 import os
 import random
-import foldertreeemng
+import foldertreemng
 from tqdm import tqdm
 from pathlib import Path
 import matrix_to_image_fn
 
-create_tree = foldertreeemng.create_tree
-clean_tree = foldertreeemng.clean_tree
+create_tree = foldertreemng.create_tree
+clean_tree = foldertreemng.clean_tree
 
 converter_fn = matrix_to_image_fn.converter_fn
 
