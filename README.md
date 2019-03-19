@@ -37,12 +37,15 @@ Testing finished
 
 ---
 
-## get_images.py (da aggiornare alla versione più recente)
-È una funzione che serve per caricare il dataset per poi darlo come input alla rete neurale. La funzione prende in input:
+# load_dataset.py
+È un modulo che contiene una funzione **get_images()** per caricare il dataset e una **next_batch()** che lo divide in batch per poi darli come input alla rete neurale. 
+
+## get_images(files_path, img_size_w, img_size_h, mode, randomize)
+La funzione prende in input:
 * `files_path`: una stringa che indica il percorso della cartella DATASET creata da **dataset_creator.py**;
 * `img_size_h`, `img_size_w`: due vaori che esprimono rispettivamente l'altezza e la larghezza delle immagini da caricare;
-* `n_input`: è la larghezza finale della matrice di immagini dove ogni riga corrisponde ad una delle immagini che sono state caricate e sarà quindi il prodotto di altezza e larghezza (e numero di canali che nel nostro caso è 1 perché usiamo immagini B/W);
 * `mode`: è la modalità in cui si sta lavorando, se **mode='TRAIN'** allora verrà caricato il dataset di training mentre se **mode='TEST'** verrà caricato il dataset di test.
+* `randomize`: parametro settato a **False** di default. Se impostato a **true** mescola l'array delle immagini e quello delle labels con lo stesso ordine random così entrambi gli array avranno un ordine casuale ma senza perdere la correlazione con le rispettive labels. Se si lascia impostato a **False** come di default avremo un dataset in cui la prima metà contiene le immagini relative a **SELECTION** e la seconda metà conterrà le immagini relative a **NEUTRAL**.
 
 Il dataset viene caricato in due array:
 * `images_arr`: per le immagini;
@@ -76,4 +79,12 @@ images_arr reshaped: (9877, 48000)
 ```
 
 **log:** inoltre all'interno della directory `DATASET` viene salvato un file **log.txt** con un log sull'esecuzione dello script. 
-**NOTA:** c'è anche la possibilità di salvare l'array numpy su disco come file `.npy` (beta).
+**NOTA:** c'è anche la possibilità di salvare l'array numpy su disco come file `.npy` (commentata).
+
+# next_batch(total, images, labels, batch_size, index)
+È una funzine che, dato un array di immagini e uno di labels, li divide in batch per poterli passare alla rete neurale. La funzione prende in input:
+* `total`: un **int** che indica la lunghezza totale del dataset quindi il varlore corrispondente al **len(images_arr)** ritornato dal **get_images()**;
+* `images`: array contenente le immagini;
+* `labels`: array contenente tutte le labels;
+* `batch_size`: un **int** che indica quanto grandi devono essere i batch da creare;
+* `index`: un **int** che indica l'indice a cui sono arrivato a dividere l'intero dataset.
