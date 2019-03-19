@@ -4,15 +4,11 @@ import random
 from os.path import isfile, join
 import numpy as np
 np.set_printoptions(threshold=np.inf)
-import os
 from tqdm import tqdm
 
-# setto la larghezza massima di stampa degli array numpy
-np.set_printoptions(linewidth=10000)
-
-# libreria per salvare l'array in forato .npy
-from tempfile import TemporaryFile
-outfile = TemporaryFile()
+# libreria per salvare l'array in formato .npy
+# from tempfile import TemporaryFile
+# outfile = TemporaryFile()
 
 # FUNZIONE PER REPERIRE SET DI IMMAGINI DAL FILE SYSTEM
 # Funziona sia per il training set che per ogni altro set
@@ -20,23 +16,25 @@ outfile = TemporaryFile()
 # La funzione prende in input:
 # - files_path: il path del DATASET contenente tutte le immagini
 # - img_size_w e img_size_h: rispettivamente larghezza e altezza dell'immagine
-# - n_input: wxhxc dove w ed h sono larghezza ed altezza dell'immagine e c è il numero di canali dellimmagine (nel nostro caso c=1)
-def get_images(files_path, img_size_w, img_size_h, n_input, mode):
-
+def get_images(files_path, img_size_w, img_size_h, mode, randomize = False):
+    print('------------------ get_images ------------------')
     if mode == 'TRAIN':
-        print('Script avviato in modalità TRAIN\n')
+        print('- Script avviato in modalità: TRAIN')
         selection_path = files_path + 'SELECTION/TRAIN_IMG/'
         neutral_path = files_path + 'NEUTRAL/TRAIN_IMG/'
-        print('Verranno usati i seguenti dataset:\n' + selection_path + '\n' + neutral_path)
+        print('- Verranno usati i seguenti dataset:\n ' + selection_path + '\n ' + neutral_path)
+        
 
     elif mode == 'TEST':
-        print('Script avviato in modalità TEST\n')
+        print('- Script avviato in modalità: TEST\n')
         selection_path = files_path + 'SELECTION/TEST_IMG/'
         neutral_path = files_path + 'NEUTRAL/TEST_IMG/'
-        print('Verranno usati i seguenti dataset:\n' + selection_path + '\n' + neutral_path)
+        print('- Verranno usati i seguenti dataset:\n ' + selection_path + '\n ' + neutral_path)
 
     images_arr = []     # lista che conterrà tutte le immagini
     label_arr = []      # lista che conterrà tutte le etichette
+
+    
 
     # Carico il SELECTION dataset [0,1]
     files = [f for f in listdir(selection_path) if isfile(join(selection_path, f))]
@@ -69,15 +67,25 @@ def get_images(files_path, img_size_w, img_size_h, n_input, mode):
     images_arr = np.array(images_arr)
     label_arr = np.array(label_arr)
 
-    print('\nGli array hanno dimensione:\n  -images_arr: ' + str(len(images_arr)) + '\n  -label_arr: ' + str(len(label_arr)))
-    print('\nimages_array shape: ' + str(images_arr.shape))
-    print('label_array shape: ' + str(label_arr.shape))
+    print('\nGli array caricati hanno dimensione:\n  -images_arr: ' + str(images_arr.shape) + '\n  -label_arr: ' + str(label_arr.shape))
+    
+    if randomize == True:
+        print('\nRandomizzo i dataset...')
+
+        indices = np.arange(images_arr.shape[0])
+        np.random.shuffle(indices)
+        images_arr = images_arr[indices]
+        label_arr = label_arr[indices]
+
+        print('Randomizzazione completata.')
+
+    print('------------------------------------------------')
     
     # np.save(files_path, images_arr) # serve per salvare un array su disco (vedi anche savetxt)
     return len(images_arr),images_arr,label_arr
 
 
-# FUNZIONE PER IL RECUPERO DI UN BATCH SI IMMAGINI DA UN SET
+# FUNZIONE PER IL RECUPERO DI UN BATCH DI IMMAGINI DA UN SET
 
 # La funzione prende in input:
 # - total: il numero totale di elementi del dataset
@@ -120,45 +128,5 @@ def next_batch(total, images, labels, batch_size, index):
 
     return batch_xs, batch_ys
 
-
-""""""""""""
-""" MAIN """
-""""""""""""
-os.system('clear')
-files_path = '/Users/matteo/Documents/GitHub/Cnn_Genetic/cnn_genetic/DATASET/'
-img_size_w = 48
-img_size_h = 1000
-n_input = 48000 # w*h
-mode = 'TRAIN'
-
-total, images_arr, label_arr = get_images(
-    files_path=files_path,
-    img_size_w=img_size_w,
-    img_size_h=img_size_h,
-    n_input=n_input,
-    mode=mode)
-
-# randomizzo i due array allo stesso modo per non perdere la corrispondenza tra i due
-print('Randomizzo i dataset...')
-indices = np.arange(images_arr.shape[0])
-np.random.shuffle(indices)
-images_arr = images_arr[indices]
-label_arr = label_arr[indices]
-
-print('\nreturn get_images:')
-print(' - total: ' + str(total))
-print(' - image_arr: ' + str(images_arr.shape))
-print(' - label_arr: ' + str(label_arr.shape))
-print('\n')
-
-print('Estraggo i batch...')
-for i in range(0,5):
-    batch_xs, batch_ys = next_batch(
-        total = total, 
-        images = images_arr,
-        labels = label_arr,
-        batch_size = 2,
-        index = i
-        )
     
 
