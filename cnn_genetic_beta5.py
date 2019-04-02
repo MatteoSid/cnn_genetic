@@ -35,9 +35,10 @@ import cnn_model_fn_v2
 cnn_model_fn = cnn_model_fn_v2.cnn_model_fn
 
 now = datetime.datetime.now()
-now = str(now.strftime("%Y-%m-%d|%H-%M"))
+now = str(now.strftime("%Y-%m-%d_%H-%M"))
 log_acc = open('log_acc_' + now + '.txt', 'w')
 log_acc = open('log_acc_' + now + '.txt', 'a')
+
 
 os.system('clear')
 local_path = os.getcwd()
@@ -62,6 +63,10 @@ epochs = 100
 inputs = 784
 classes = 10
 dropout = 0.75
+img_size_h = 1000
+img_size_w = 48
+n_input = img_size_h*img_size_w
+n_classes = 2
 
 # Chiedo la modalità di esecuzione in un ciclo che esce solo in caso di risposta corretta
 # while True:
@@ -80,11 +85,13 @@ print('\n')
 
 log_acc.write('PARAMETRI:\n - learning_rate: ' + str(learning_rate) + '\n - batch_size: ' + str(batch_size) + '\n - epochs: ' + str(epochs) + '\n\n')
 
+x = tf.placeholder(tf.float32, [None, img_size_h, img_size_w])
+y = tf.placeholder(tf.float32, [None, n_classes])
 
 len_X, X, Y = get_images(
     files_path=dataset_path,
-    img_size_h=1000,
-    img_size_w=48,
+    img_size_h=img_size_h,
+    img_size_w=img_size_w,
     mode='TRAIN',
     randomize=True
 )
@@ -94,22 +101,14 @@ print('[LOG:len_X/batch_size]: ' + str(len_X) + '/' + str(batch_size) + ' = ' + 
 log_acc.write('DATASET:\n - numero di immagini caricate: ' + str(len_X) + '\n - formato X: ' + str(X.shape) + '\n - formato Y: ' + str(Y.shape) + '\n - con un batch_size di ' + str(batch_size) + ' verranno eseguite ' + str(len_X) + '/(' + str(batch_size) + ')+1 = ' + str(int(len_X/batch_size)) + ' iterazioni per epoca\n\n')
 log_acc.close()
 
-X_batch, Y_X_batch = next_batch(
-    total=len_X,
-    images=X,
-    labels=Y,
-    batch_size=batch_size,
-    index=0
-)
-
 # RICHIAMO LA FUNZIONE
-logits = cnn_model_fn(X_batch, MODE, log=True)
+logits = cnn_model_fn(x, MODE, log=False)
 
 # DICHIARO LE ETICHETTE CHE AVREI APPLICATO AD OGNI IMMAGINE
 prediction = tf.nn.softmax(logits)
 
 # TASSO DI ERRORE
-loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits_v2(logits=logits, labels=Y_X_batch))
+loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits_v2(logits=logits, labels=y))
 
 # DICHIARO UN OPTIMIZER CHE MODIFICA I PESI IN BASE AL LEARNING RATE
 optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate)
@@ -118,7 +117,7 @@ optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate)
 train_op = optimizer.minimize(loss)
 
 # CONFRONTO LE MIE PREVISIONI CON QUELLE CORRETTE DEL TRAIN TEST
-correct_predict = tf.equal(tf.argmax(prediction, 1), tf.argmax(Y_X_batch, 1))
+correct_predict = tf.equal(tf.argmax(prediction, 1), tf.argmax(y, 1))
 
 # CONTROLLO L'ACCURACY CHE HO AVUTO
 accuracy = tf.reduce_mean(tf.cast(correct_predict, tf.float32))
@@ -126,6 +125,7 @@ accuracy = tf.reduce_mean(tf.cast(correct_predict, tf.float32))
 init = tf.global_variables_initializer()
 best_acc=0
 
+log_csv = open('log_csv_' + now + '.csv', 'w')
 with tf.Session() as sess:
 
     sess.run(init)
@@ -133,24 +133,29 @@ with tf.Session() as sess:
 
     if MODE == 'TRAIN':
         # os.system('clear')
-        print("TRAINING MODE")
+        print("\nTRAINING MODE")
 
         for step in range(1,epochs+1):
+
+            log_csv = open('log_csv_' + now + '.csv', 'a')
+            log_csv.write('Iterazione;Accuracy;Tempo\n')
+            log_csv.close()
+
             for i in range(0, int(len_X/batch_size)+1):
                 t0 = time.time()
 
-                if i > 0:
-                    X_batch, Y_X_batch = next_batch(
-                        total=len_X,
-                        images=X,
-                        labels=Y,
-                        batch_size=batch_size,
-                        index=i
-                    )
+                X_batch, Y_batch = next_batch(
+                    total=len_X,
+                    images=X,
+                    labels=Y,
+                    batch_size=batch_size,
+                    index=i
+                )
 
+                train_feed = {x: X_batch, y: Y_batch}
 
-                sess.run(train_op)
-                los, acc= sess.run([loss, accuracy])
+                sess.run(train_op, feed_dict = train_feed)
+                los, acc= sess.run([loss, accuracy], feed_dict = train_feed)
 
                 t1 = time.time()
                 t = t1-t0
@@ -165,6 +170,11 @@ with tf.Session() as sess:
                     log_acc = open('log_acc_' + now + '.txt', 'a')
                     log_acc.write('[e:' + str(step) + ', i:' + str(i) + ']\t' +'%.4f' % acc + '\t' + '%.3f' % t + '\t' + check + '\n')
                     log_acc.close()
+
+                    log_csv = open('log_csv_' + now + '.csv', 'a')
+                    log_csv.write(str(step) + ',' + str(i) + ';' + '%.4f' % acc + ';' + '%.3f' % t + '\n')
+                    log_csv.close()
+
                     saver.save(sess,save_path)
                 # elif step %20 == 0:
                 else:
@@ -172,6 +182,14 @@ with tf.Session() as sess:
                     log_acc = open('log_acc_' + now + '.txt', 'a')
                     log_acc.write('[e:' + str(step) + ', i:' + str(i) + ']\t' + '%.4f' % acc + '\t' + '%.3f' % t + '\t' + check + '\n')
                     log_acc.close()
+
+                    log_csv = open('log_csv_' + now + '.csv', 'a')
+                    log_csv.write(str(step) + ',' + str(i) + ';' + '%.4f' % acc + ';' + '%.3f' % t + '\n')
+                    log_csv.close()
+
+        log_csv = open('log_csv_' + now + '.csv', 'a')
+        log_csv.write('\n\n\n')
+        log_csv.close()
 
         writer = tf.summary.FileWriter(TensorBoard_path, sess.graph)
 
