@@ -1,31 +1,37 @@
-# cnn_mnist_beta#.py
+# cnn_mnist_RC1.py
 I file e le cartelle principali sono:
-* **cnn_mnist_beta#.py** è la funzione principale di riferimento;
-* **cnn_mnist_fn.py** contiene la funzione che crea il modello (usata nelle vecchie versioni, deve ancora essere implementata nell'ultima versine);
+* **cnn_mnist_RC1.py** è la funzione principale di riferimento;
+* **cnn_mnist_fn_v2.py** contiene la funzione che crea il modello (usata nelle vecchie versioni, deve ancora essere implementata nell'ultima versine);
 * **dataset_creator** contiene uno script che usa ms2raster.py ed altri moduli per creare dataset di immagini già classificate e divise per tipo per eseguire training e test della rete;
-* **MNIST_data** è una cartella che contiene i dataset di training e testing;
-* **get_images.py** è una funzione per il caricamento in memoria del dataset.
+* **load_dataset.py** è una funzione per il caricamento in memoria del dataset.
 
 ---
-## cnn_mnist_beta#.py
+## cnn_mnistRC1.py
 
 È la funzione principale per l'esecuzione del modello. All'avvio per prima cosa richiede l'inserimento della modalità di avvio che può essere `TRAIN`, `TEST`, `BOTH`.
 
-* Modalità `TRAIN`: Per ora il programma chiede solamente il nunmero di epoche come parametro di input, gli altri parametri sono costanti all'interno del codice. Una volta inserito il numero di epoche verrà avviato il training dell'allenamento che darò info in modo periodico sull'avanzamento dell'allenamento. Verrà anche segnalato con una checkbox quando l'accuratezza della rete è migliorata. Per esempio, se alleniamo il modello con 50 epoche avremo un output del tipo:
+* Modalità `TRAIN`: Il programma chiede in input la grandezza del parametro `batch_size` e il numero di `epoche` che si vogliono eseguire. 
+Una volta avviato il training verrà allenato il modello sull'intero dataset per ogni epoca e per ogni epoca verranno fatte tante iterazioni quante ne servono per arrivare alla fine del dataset. (Maggiore è il valore di `batch_size` e minori saranno le iterazioni necessarie e viceversa). Alla fine di ogni epoca, dopo l'ultima iterazione, verrà fatto un `validation test` su immagini che il modello elabora per la prima volta in modo da verificare l'**accuracy** raggiunta. 
+
+Duranteil training verrano date informazioni in modo continuo sull'avanzamento dell'allenamento. Verrà anche segnalato con una checkbox quando l'accuratezza della rete è migliorata e alla fine di ogni epoca verrà visualizzato il risultato del `validation test`. 
 
 ```
 TRAINING MODE
-16      0.9141          [X]
-20      0.8516          [ ]
-22      0.9141          [X]
-31      0.9375          [X]
-40      0.8984          [ ]
-41      0.9375          [X]
-42      0.9531          [X]
+...
+...
+[e:4, i:79]		0.9570		[ ]		5.423s
+[e:4, i:80]		0.9629		[ ]		5.300s
+[e:4, i:81]		0.9648		[X]		5.193s
+[e:4, i:82]		0.9668		[X]		5.193s
+[e:4, i:83]		0.9609		[ ]		5.316s
+[e:4, i:84]		0.9629		[ ]		5.298s
+[e:4, i:85]		0.9727		[X]		5.277s
+[e:4, i:86]		0.9707		[ ]		5.305s
+Evaluation test: 0.9628906
 ```
-con log ogni 20 epoche oppure ogni volta che l'accuratezza è migliorata.
 
-* Modalità `TEST`: Anche questa volta verrà chiesto solamente il numero di epoche da eseguire, solo che questa volta il modellolavorerà sul dataset di test e l'output darà solamente informazioni sull'accuratezza del modello durante il test. Per esempio, se testiamo il modello con 50 epoche avremo un output del tipo:
+
+* Modalità `TEST`: Il programma caricherà il modello ed eseguirà il test sul dataset di test che contiene immagini che non sono mai state usate per l'allenamento. 
 
 ```
 TESTING MODE
