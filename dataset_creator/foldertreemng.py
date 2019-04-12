@@ -14,10 +14,14 @@ def create_tree(path, mode):
 
         os.mkdir(path + 'DATASET/SELECTION/TRAIN/')
         os.mkdir(path + 'DATASET/SELECTION/TEST/')
+        os.mkdir(path + 'DATASET/SELECTION/EVAL/')
+
         os.system('cp ' + path + 'ms2raster.zip ' + path + 'DATASET/SELECTION/TRAIN')
         os.system('cd ' + path + 'DATASET/SELECTION/TRAIN' + ' ; unzip ms2raster.zip')
         os.system('cp ' + path + 'ms2raster.zip ' + path + 'DATASET/SELECTION/TEST')
         os.system('cd ' + path + 'DATASET/SELECTION/TEST' + ' ; unzip ms2raster.zip')
+        os.system('cp ' + path + 'ms2raster.zip ' + path + 'DATASET/SELECTION/EVAL')
+        os.system('cd ' + path + 'DATASET/SELECTION/EVAL' + ' ; unzip ms2raster.zip')
 
     if mode == 'N' or mode == 'B':
 
@@ -29,10 +33,13 @@ def create_tree(path, mode):
 
         os.mkdir(path + 'DATASET/NEUTRAL/TRAIN/')
         os.mkdir(path + 'DATASET/NEUTRAL/TEST/')
+        os.mkdir(path + 'DATASET/NEUTRAL/EVAL/')
         os.system('cp ' + path + 'ms2raster.zip ' + path + 'DATASET/NEUTRAL/TRAIN')
         os.system('cd ' + path + 'DATASET/NEUTRAL/TRAIN' + ' ; unzip ms2raster.zip')
         os.system('cp ' + path + 'ms2raster.zip ' + path + 'DATASET/NEUTRAL/TEST')
         os.system('cd ' + path + 'DATASET/NEUTRAL/TEST' + ' ; unzip ms2raster.zip')
+        os.system('cp ' + path + 'ms2raster.zip ' + path + 'DATASET/NEUTRAL/EVAL')
+        os.system('cd ' + path + 'DATASET/NEUTRAL/EVAL' + ' ; unzip ms2raster.zip')
 
 def clean_tree(path, mode):
     if mode == 'S' or mode =='B':
@@ -60,6 +67,17 @@ def clean_tree(path, mode):
         os.system('cd ' + path_tmp + 'TEST ; rm tp.out')
         os.system('cd ' + path_tmp + 'TEST ; rm trajfixconst')
         os.system('cd ' + path_tmp + 'TEST ; rm -r __MACOSX')
+
+        os.system('cd ' + path_tmp + 'EVAL ; rm ms2raster.zip')
+        os.system('cd ' + path_tmp + 'EVAL ; rm ms')
+        os.system('cd ' + path_tmp + 'EVAL ; rm lastp0')
+        os.system('cd ' + path_tmp + 'EVAL ; rm ms2raster.py')
+        os.system('cd ' + path_tmp + 'EVAL ; rm mssel')
+        os.system('cd ' + path_tmp + 'EVAL ; rm seedms')
+        os.system('cd ' + path_tmp + 'EVAL ; rm stepftn')
+        os.system('cd ' + path_tmp + 'EVAL ; rm tp.out')
+        os.system('cd ' + path_tmp + 'EVAL ; rm trajfixconst')
+        os.system('cd ' + path_tmp + 'EVAL ; rm -r __MACOSX')
     
     if mode == 'N' or mode == 'B':
 
@@ -86,6 +104,17 @@ def clean_tree(path, mode):
         os.system('cd ' + path_tmp + 'TEST ; rm tp.out')
         os.system('cd ' + path_tmp + 'TEST ; rm trajfixconst')
         os.system('cd ' + path_tmp + 'TEST ; rm -r __MACOSX')
+
+        os.system('cd ' + path_tmp + 'EVAL ; rm ms2raster.zip')
+        os.system('cd ' + path_tmp + 'EVAL ; rm ms')
+        os.system('cd ' + path_tmp + 'EVAL ; rm lastp0')
+        os.system('cd ' + path_tmp + 'EVAL ; rm ms2raster.py')
+        os.system('cd ' + path_tmp + 'EVAL ; rm mssel')
+        os.system('cd ' + path_tmp + 'EVAL ; rm seedms')
+        os.system('cd ' + path_tmp + 'EVAL ; rm stepftn')
+        os.system('cd ' + path_tmp + 'EVAL ; rm tp.out')
+        os.system('cd ' + path_tmp + 'EVAL ; rm trajfixconst')
+        os.system('cd ' + path_tmp + 'EVAL ; rm -r __MACOSX')
     
 
 # os.system('clear')

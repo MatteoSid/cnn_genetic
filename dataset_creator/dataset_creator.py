@@ -31,13 +31,23 @@ print('-p:\t\tpath della cartella contenente i moduli necessari')
 print('-i:\t\tnumero di individui presi in considerazione')
 
 mod = input('\nAvviare in modalità SELECTION[S], NEUTRAL[N] o entrambi[B]? ')
-n_mat = input('Inserire grandezza singole matrici (-bp): ')
+bp = input('Inserire grandezza singole matrici (-bp): ')
+selstr = input('Inserire un valore per selstr (-selstr): ')
 n_train = int(input('Inserire quante matrici per il training set (-s): '))
 n_test = int(input('Inserire quante matrici per il test set (-s): '))
+n_eval = int(input("Inserire quante matrici per l'evaluatioin set (-s): "))
+img = input('Vuoi trasformare le matrici in immagini? [Y]/[N]: ')
+txt = input('Vuoi tenere le matrici in formato testuale? [Y]/[N]: ')
+compr = input('\nVuoi comprimere il dataset appena creato? [Y]/[N]: ')
+if compr == 'Y':
+    print(path)
+    nome_archivio = input('Inserisci un nome da dare al file compresso: ')
+    
+
 if mod == 'B':
     n_train = n_train/2
     n_test = n_test/2
-selstr = input('Inserire un valore per selstr (-selstr): ')
+    n_eval = n_eval/2
 
 create_tree(
     path=path, 
@@ -55,39 +65,58 @@ elif mod == 'N':
     log.write('- Il dataset è stato eseguito creando solamente le matrici in modalità NEUTRAL.\n')
 else:
     log.write('- Il dataset è stato eseguito creando le matrici sia in modalità SELECTION che NEUTRAL.\n')
-log.write('- ' + str(int(n_train*2)) + ' matrici per il training (' + str(int(n_train)) + ' per tipo)\n')
-log.write('- ' + str(int(n_test*2)) + ' matrici per il test (' + str(int(n_test)) + ' per tipo)\n')
-log.write('- le singole matrici hanno un bp di ' + n_mat + '\n')
+
+if mod == 'B':
+    log.write('- ' + str(int(n_train*2)) + ' matrici per il training (' + str(int(n_train)) + ' per tipo)\n')
+    log.write('- ' + str(int(n_test*2)) + ' matrici per il test (' + str(int(n_test)) + ' per tipo)\n')
+    log.write("- " + str(int(n_eval*2)) + " matrici per l'evaluation (" + str(int(n_eval)) + " per tipo)\n")
+else:
+    log.write('- ' + str(int(n_train)) + ' matrici per il training')
+    log.write('- ' + str(int(n_test)) + ' matrici per il test')
+    log.write("- " + str(int(n_eval)) + " matrici per l'evaluation")
+    
+log.write('- le singole matrici hanno un bp di ' + bp + '\n')
 log.write("- l'intensità della selezione è " + selstr + '\n')
 log.write('- il numero di individui presi in considerazione è 24\n')
     
 if mod == 'S' or mod == 'B':
-    comand_train = 'cd ' + path + 'DATASET/SELECTION/TRAIN ; python3 ms2raster.py -bp ' + str(n_mat) + ' -s ' + str(int(n_train)) + ' -l selection -selstr ' + selstr + ' -p ' + path + 'DATASET/SELECTION/TRAIN/ -i +24'
+    comand_train = 'cd ' + path + 'DATASET/SELECTION/TRAIN ; python3 ms2raster.py -bp ' + str(bp) + ' -s ' + str(int(n_train)) + ' -l selection -selstr ' + selstr + ' -p ' + path + 'DATASET/SELECTION/TRAIN/ -i +24'
     log.write('\n\nComando usato per generare il selection train set:\n' + comand_train + '\n\n')
     # print('[LOG:comand_train]: ' + comand_train)
     os.system(comand_train)   
     
-    comand_test = 'cd ' + path + 'DATASET/SELECTION/TEST ; python3 ms2raster.py -bp ' + str(n_mat) + ' -s ' + str(int(n_test)) + ' -l selection -selstr ' + selstr + ' -p ' + path + 'DATASET/SELECTION/TEST/ -i +24'
+    comand_test = 'cd ' + path + 'DATASET/SELECTION/TEST ; python3 ms2raster.py -bp ' + str(bp) + ' -s ' + str(int(n_test)) + ' -l selection -selstr ' + selstr + ' -p ' + path + 'DATASET/SELECTION/TEST/ -i +24'
     log.write('Comando usato per generare il selection test set:\n' + comand_test + '\n\n')
+    # print('\nLOG:comand_test]: ' + comand_test)
+    os.system(comand_test)
+
+    comand_test = 'cd ' + path + 'DATASET/SELECTION/EVAL ; python3 ms2raster.py -bp ' + str(bp) + ' -s ' + str(int(n_eval)) + ' -l selection -selstr ' + selstr + ' -p ' + path + 'DATASET/SELECTION/EVAL/ -i +24'
+    log.write('Comando usato per generare il selection evaluation set:\n' + comand_test + '\n\n')
     # print('\nLOG:comand_test]: ' + comand_test)
     os.system(comand_test)   
 
 if mod == 'N' or mod == 'B':
-    comand_train = 'cd ' + path + 'DATASET/NEUTRAL/TRAIN ; python3 ms2raster.py -bp ' + str(n_mat) + ' -s ' + str(int(n_train)) + ' -l neutral -selstr ' + selstr + ' -p ' + path + 'DATASET/NEUTRAL/TRAIN/ -i +24'
+    comand_train = 'cd ' + path + 'DATASET/NEUTRAL/TRAIN ; python3 ms2raster.py -bp ' + str(bp) + ' -s ' + str(int(n_train)) + ' -l neutral -selstr ' + selstr + ' -p ' + path + 'DATASET/NEUTRAL/TRAIN/ -i +24'
     log.write('Comando usato per generare il neutral train set:\n' + comand_train + '\n\n')
     # print('[LOG:comand_train]: ' + comand_train)
     os.system(comand_train)   
     
-    comand_test = 'cd ' + path + 'DATASET/NEUTRAL/TEST ; python3 ms2raster.py -bp ' + str(n_mat) + ' -s ' + str(int(n_test)) + ' -l neutral -selstr ' + selstr + ' -p ' + path + 'DATASET/NEUTRAL/TEST/ -i +24'
+    comand_test = 'cd ' + path + 'DATASET/NEUTRAL/TEST ; python3 ms2raster.py -bp ' + str(bp) + ' -s ' + str(int(n_test)) + ' -l neutral -selstr ' + selstr + ' -p ' + path + 'DATASET/NEUTRAL/TEST/ -i +24'
     log.write('Comando usato per generare il neutral test set:\n' + comand_test + '\n\n')
     # print('\nLOG:comand_test]: ' + comand_test)
     os.system(comand_test)
 
-if input('\nVuoi trasformare le matrici in immagini? [Y]/[N]: ') == 'Y': 
+    comand_test = 'cd ' + path + 'DATASET/NEUTRAL/EVAL ; python3 ms2raster.py -bp ' + str(bp) + ' -s ' + str(int(n_eval)) + ' -l neutral -selstr ' + selstr + ' -p ' + path + 'DATASET/NEUTRAL/EVAL/ -i +24'
+    log.write('Comando usato per generare il neutral evaluation set:\n' + comand_test + '\n\n')
+    # print('\nLOG:comand_test]: ' + comand_test)
+    os.system(comand_test)
+
+if img == 'Y': 
 
     if mod == 'S' or mod == 'B':
         os.mkdir(path + 'DATASET/SELECTION/TRAIN_IMG')
         os.mkdir(path + 'DATASET/SELECTION/TEST_IMG')
+        os.mkdir(path + 'DATASET/SELECTION/EVAL_IMG')
 
         print('\nTrasformo il selection training set in immagini...')
         for i in tqdm(range(1, int(n_train)+1)):
@@ -110,9 +139,21 @@ if input('\nVuoi trasformare le matrici in immagini? [Y]/[N]: ') == 'Y':
                             path = path + 'DATASET/SELECTION/TEST/' + str(i) + '.selection.sim',
                             file_name = path + 'DATASET/SELECTION/TEST_IMG/' + str(i) + '.selection.png',
                             )
+        
+        print('\nTrasformo il selection evaluation set in immagini...')
+        for i in tqdm(range(1, int(n_eval)+1)):
+            # SELECTION - EVAL
+            path_tmp_seval = path + 'DATASET/SELECTION/EVAL/' + str(i) + '.selection.sim'
+            file_seval = Path(path_tmp_seval)
+            if file_seval.is_file():
+                converter_fn(
+                            path = path + 'DATASET/SELECTION/EVAL/' + str(i) + '.selection.sim',
+                            file_name = path + 'DATASET/SELECTION/EVAL_IMG/' + str(i) + '.selection.png',
+                            )
     if mod == 'N' or mod == 'B':
         os.mkdir(path + 'DATASET/NEUTRAL/TRAIN_IMG')
         os.mkdir(path + 'DATASET/NEUTRAL/TEST_IMG')
+        os.mkdir(path + 'DATASET/NEUTRAL/EVAL_IMG')
 
         print('\nTrasformo il neutral training set in immagini...')
         for i in tqdm(range(1, int(n_train)+1)):
@@ -135,19 +176,30 @@ if input('\nVuoi trasformare le matrici in immagini? [Y]/[N]: ') == 'Y':
                             path = path + 'DATASET/NEUTRAL/TEST/' + str(i) + '.neutral.sim',
                             file_name = path + 'DATASET/NEUTRAL/TEST_IMG/' + str(i) + '.neutral.png',
                             )
+        
+        print("\nTrasformo il neutral evaluation set in immagini...")
+        for i in tqdm(range(1, int(n_eval)+1)):
+            # NEUTRAL - EVAL    
+            path_tmp_neval = path + 'DATASET/NEUTRAL/EVAL/' + str(i) + '.neutral.sim'
+            file_neval = Path(path_tmp_neval)
+            if file_neval.is_file():
+                converter_fn(
+                            path = path + 'DATASET/NEUTRAL/EVAL/' + str(i) + '.neutral.sim',
+                            file_name = path + 'DATASET/NEUTRAL/EVAL_IMG/' + str(i) + '.neutral.png',
+                            )
 
-    if input('\nVuoi tenere le matrici in formato testuale? [Y]/[N]: ') == 'N':
+    if txt == 'N':
         os.system('rm -r ' + path + 'DATASET/SELECTION/TEST')
         os.system('rm -r ' + path + 'DATASET/SELECTION/TRAIN')
+        os.system('rm -r ' + path + 'DATASET/SELECTION/EVAL')
 
         os.system('rm -r ' + path + 'DATASET/NEUTRAL/TEST')
         os.system('rm -r ' + path + 'DATASET/NEUTRAL/TRAIN')
+        os.system('rm -r ' + path + 'DATASET/NEUTRAL/EVAL')
     else:
         clean_tree(path=path, mode=mod)
+    
+if compr == 'Y':
+    os.system('tar zcvf ' + nome_archivio + '.tar.gz DATASET')
 
 log.close()
-
-if input('\nVuoi comprimere il dataset appena creato? [Y]/[N]: ') == 'Y':
-    print(path)
-    nome_archivio = input('Inserisci un nome da dare al file compresso: ')
-    os.system('tar zcvf ' + nome_archivio + '.tar.gz DATASET')

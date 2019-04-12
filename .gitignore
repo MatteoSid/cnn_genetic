@@ -22,3 +22,5 @@ Dataset_1000_0005_3000_1000.tar.gz
 5.selection.png
 .Dataset_1000_0005_3000_1000.tar.gz.icloud
 .DATASET.zip.icloud
+*.txt
+*.csv

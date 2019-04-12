@@ -30,6 +30,12 @@ def get_images(files_path, img_size_w, img_size_h, mode, randomize = False):
         selection_path = files_path + 'SELECTION/TEST_IMG/'
         neutral_path = files_path + 'NEUTRAL/TEST_IMG/'
         print('- Verranno usati i seguenti dataset:\n ' + selection_path + '\n ' + neutral_path)
+    
+    elif mode == 'EVAL':
+        print('- Script avviato in modalità: EVALUATION\n')
+        selection_path = files_path + 'SELECTION/EVAL_IMG/'
+        neutral_path = files_path + 'NEUTRAL/EVAL_IMG/'
+        print('- Verranno usati i seguenti dataset:\n ' + selection_path + '\n ' + neutral_path)
 
     images_arr = []     # lista che conterrà tutte le immagini
     label_arr = []      # lista che conterrà tutte le etichette
@@ -40,7 +46,7 @@ def get_images(files_path, img_size_w, img_size_h, mode, randomize = False):
     files = [f for f in listdir(selection_path) if isfile(join(selection_path, f))]
     print('\nCarico il SELECTION dataset:')
     for fl in tqdm(files):
-        if fl != '.DS_Store':
+        if fl.endswith(".png"):
             
             # carico le immagini convertendole in immagini ad un canale
             image = Image.open(selection_path + fl).convert(mode='L')  
@@ -54,7 +60,8 @@ def get_images(files_path, img_size_w, img_size_h, mode, randomize = False):
     files = [f for f in listdir(neutral_path) if isfile(join(neutral_path, f))] 
     print('\nCarico il NEUTRAL dataset:')
     for fl in tqdm(files):
-        if fl != '.DS_Store':
+        if fl.endswith(".png"):
+            
             # carico le immagini convertendole in immagini ad un canale
             image = Image.open(neutral_path + fl).convert(mode='L')
             
