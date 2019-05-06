@@ -20,8 +20,8 @@ import load_dataset
 get_images = load_dataset.get_images
 next_batch = load_dataset.next_batch
 
-import cnn_model_fn_v2
-cnn_model_fn = cnn_model_fn_v2.cnn_model_fn
+import cnn_model_fn
+cnn_model_fn = cnn_model_fn.cnn_model_fn
 
 os.system('clear')
 local_path = os.getcwd()
@@ -137,7 +137,9 @@ with tf.Session() as sess:
         
         # Carico il modello addestrato in precedenza
         if load == True:
-            saver.restore(sess, save_path)
+            sav = Path('/Users/matteo/Documents/GitHub/Cnn_Genetic/cnn_genetic/.TensorFlow_Data/checkpoint')
+            if sav.is_file():
+                saver.restore(sess, save_path)
 
         # epoche
         for step in range(1,epochs+1):

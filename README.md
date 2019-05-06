@@ -1,19 +1,18 @@
-# cnn_mnist_RC1.py
+# cnn_genetic.py
 I file e le cartelle principali sono:
-* **cnn_mnist_RC1.py** è la funzione principale di riferimento;
-* **cnn_mnist_fn_v2.py** contiene la funzione che crea il modello (usata nelle vecchie versioni, deve ancora essere implementata nell'ultima versine);
-* **dataset_creator** contiene uno script che usa ms2raster.py ed altri moduli per creare dataset di immagini già classificate e divise per tipo per eseguire training e test della rete;
+* **cnn_genetic.py** è la funzione principale di riferimento;
+* **cnn_model_fn.py** contiene la funzione che crea il modello;
 * **load_dataset.py** è una funzione per il caricamento in memoria del dataset.
 
 ---
-## cnn_mnistRC1.py
+## cnn_genetic.py
 
 È la funzione principale per l'esecuzione del modello. All'avvio per prima cosa richiede l'inserimento della modalità di avvio che può essere `TRAIN`, `TEST`, `BOTH`.
 
 * Modalità `TRAIN`: Il programma chiede in input la grandezza del parametro `batch_size` e il numero di `epoche` che si vogliono eseguire. 
-Una volta avviato il training verrà allenato il modello sull'intero dataset per ogni epoca e per ogni epoca verranno fatte tante iterazioni quante ne servono per arrivare alla fine del dataset. (Maggiore è il valore di `batch_size` e minori saranno le iterazioni necessarie e viceversa). Alla fine di ogni epoca, dopo l'ultima iterazione, verrà fatto un `validation test` su immagini che il modello elabora per la prima volta in modo da verificare l'**accuracy** raggiunta. 
+Una volta avviato il training verrà allenato il modello sull'intero dataset per ogni epoca e per ogni epoca verranno fatte tante iterazioni quante ne servono per arrivare alla fine del dataset, quindi il numero i iterazioni per ogni epoca dipende da `batch_size` (maggiore è il valore di `batch_size` e minori saranno le iterazioni necessarie e viceversa). Alla fine di ogni epoca, dopo l'ultima iterazione, verrà fatto un `validation test` su immagini che il modello elabora per la prima volta in modo da verificare l'**accuracy** raggiunta. 
 
-Duranteil training verrano date informazioni in modo continuo sull'avanzamento dell'allenamento. Verrà anche segnalato con una checkbox quando l'accuratezza della rete è migliorata e alla fine di ogni epoca verrà visualizzato il risultato del `validation test`. 
+Durante il training verrano date informazioni in modo continuo sull'avanzamento dell'allenamento. Verrà anche segnalato con una checkbox quando l'accuratezza della rete è migliorata e alla fine di ogni epoca verrà visualizzato il risultato del `validation test`. 
 
 ```
 TRAINING MODE
