@@ -39,6 +39,7 @@ n_test = int(input('Inserire quante matrici per il test set (-s): '))
 img = input('Vuoi trasformare le matrici in immagini? [Y]/[N]: ')
 txt = input('Vuoi tenere le matrici in formato testuale? [Y]/[N]: ')
 compr = input('\nVuoi comprimere il dataset appena creato? [Y]/[N]: ')
+nome_archivio = 'DATASET'
 if compr == 'Y':
     print(path)
     nome_archivio = input('Inserisci un nome da dare al file compresso: ')
@@ -90,10 +91,10 @@ if mod == 'S' or mod == 'B':
     # print('\nLOG:comand_test]: ' + comand_test)
     os.system(comand_test)
 
-    comand_test = 'cd ' + path + 'DATASET/SELECTION/EVAL ; python3 ms2raster.py -bp ' + str(bp) + ' -s ' + str(int(n_eval)) + ' -l selection -selstr ' + selstr + ' -p ' + path + 'DATASET/SELECTION/EVAL/ -i +24'
-    log.write('Comando usato per generare il selection evaluation set:\n' + comand_test + '\n\n')
-    # print('\nLOG:comand_test]: ' + comand_test)
-    os.system(comand_test)   
+    comand_eval = 'cd ' + path + 'DATASET/SELECTION/EVAL ; python3 ms2raster.py -bp ' + str(bp) + ' -s ' + str(int(n_eval)) + ' -l selection -selstr ' + selstr + ' -p ' + path + 'DATASET/SELECTION/EVAL/ -i +24'
+    log.write('Comando usato per generare il selection evaluation set:\n' + comand_eval + '\n\n')
+    # print('\nLOG:comand_eval]: ' + comand_eval)
+    os.system(comand_eval)   
 
 if mod == 'N' or mod == 'B':
     comand_train = 'cd ' + path + 'DATASET/NEUTRAL/TRAIN ; python3 ms2raster.py -bp ' + str(bp) + ' -s ' + str(int(n_train)) + ' -l neutral -selstr ' + selstr + ' -p ' + path + 'DATASET/NEUTRAL/TRAIN/ -i +24'
@@ -106,10 +107,10 @@ if mod == 'N' or mod == 'B':
     # print('\nLOG:comand_test]: ' + comand_test)
     os.system(comand_test)
 
-    comand_test = 'cd ' + path + 'DATASET/NEUTRAL/EVAL ; python3 ms2raster.py -bp ' + str(bp) + ' -s ' + str(int(n_eval)) + ' -l neutral -selstr ' + selstr + ' -p ' + path + 'DATASET/NEUTRAL/EVAL/ -i +24'
-    log.write('Comando usato per generare il neutral evaluation set:\n' + comand_test + '\n\n')
-    # print('\nLOG:comand_test]: ' + comand_test)
-    os.system(comand_test)
+    comand_eval = 'cd ' + path + 'DATASET/NEUTRAL/EVAL ; python3 ms2raster.py -bp ' + str(bp) + ' -s ' + str(int(n_eval)) + ' -l neutral -selstr ' + selstr + ' -p ' + path + 'DATASET/NEUTRAL/EVAL/ -i +24'
+    log.write('Comando usato per generare il neutral evaluation set:\n' + comand_eval + '\n\n')
+    # print('\nLOG:comand_eval]: ' + comand_eval)
+    os.system(comand_eval)
 
 if img == 'Y': 
 

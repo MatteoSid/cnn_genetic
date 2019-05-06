@@ -100,26 +100,26 @@ def cnn_model_fn(X, MODE, log=False):
             print('[LOG:dense_relu]: ' + str(dense_relu.shape))
         # input('Premi invio per continuare')
 
-    dropout = 0
+    
     # AGGIUNGO L'OPERAZIONE DI DROPOUT
     if MODE == 'TRAIN':
         with tf.name_scope('Dropout'):
             dropout = tf.layers.dropout(
                 inputs=dense_relu,
                 rate=0.4,
-                training=MODE == tf.estimator.ModeKeys.TRAIN
+                training = True
             )
             if log == True:
                 print('[LOG:dropout]: ' + str(dropout.shape))
             # input('Premi invio per continuare')
-    elif MODE == 'EVAL':
-        with tf.name_scope('Dropout'):
+    else:
+         with tf.name_scope('Dropout'):
             dropout = tf.layers.dropout(
                 inputs=dense_relu,
                 rate=0.4,
-                training=MODE == tf.estimator.ModeKeys.EVAL
+                training=False
             )
-            if log==True:
+            if log == True:
                 print('[LOG:dropout]: ' + str(dropout.shape))
             # input('Premi invio per continuare')
 

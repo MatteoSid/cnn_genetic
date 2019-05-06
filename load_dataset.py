@@ -39,9 +39,7 @@ def get_images(files_path, img_size_w, img_size_h, mode, randomize = False):
 
     images_arr = []     # lista che conterrà tutte le immagini
     label_arr = []      # lista che conterrà tutte le etichette
-
-    
-
+ 
     # Carico il SELECTION dataset [0,1]
     files = [f for f in listdir(selection_path) if isfile(join(selection_path, f))]
     print('\nCarico il SELECTION dataset:')
@@ -55,6 +53,7 @@ def get_images(files_path, img_size_w, img_size_h, mode, randomize = False):
             if str(image.size) == '(' + str(img_size_w) + ', ' + str(img_size_h) + ')':
                 label_arr.append([0, 1])    # applico l'etichetta [0,1] a tutte le immagini SELECTION
                 images_arr.append(np.array(image,dtype=float))
+                
             
     # Carico il NEUTRAL dataset [1,0]
     files = [f for f in listdir(neutral_path) if isfile(join(neutral_path, f))] 
@@ -69,11 +68,12 @@ def get_images(files_path, img_size_w, img_size_h, mode, randomize = False):
             if str(image.size) == '(' + str(img_size_w) + ', ' + str(img_size_h) + ')':
                 label_arr.append([1,0])         # applico l'etichetta [0,1] a tutte le immagini NEUTRAL
                 images_arr.append(np.array(image, dtype=float))
-        
+                
+ 
     # trasformo le liste in array numpy
     images_arr = np.array(images_arr)
     label_arr = np.array(label_arr)
-
+    
     print('\nGli array caricati hanno dimensione:\n  -images_arr: ' + str(images_arr.shape) + '\n  -label_arr: ' + str(label_arr.shape))
     
     if randomize == True:
@@ -83,6 +83,7 @@ def get_images(files_path, img_size_w, img_size_h, mode, randomize = False):
         np.random.shuffle(indices)
         images_arr = images_arr[indices]
         label_arr = label_arr[indices]
+        
 
         print('Randomizzazione completata.')
 
