@@ -8,7 +8,6 @@ import sys
 import time
 import datetime
 import numpy as np
-from tqdm import tqdm
 from os import listdir
 import tensorflow as tf
 from pathlib import Path
