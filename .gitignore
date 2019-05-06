@@ -24,3 +24,4 @@ Dataset_1000_0005_3000_1000.tar.gz
 .DATASET.zip.icloud
 *.txt
 *.csv
+.gitignore
