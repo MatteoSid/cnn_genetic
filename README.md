@@ -12,7 +12,7 @@ I file e le cartelle principali sono:
 * Modalità `TRAIN`: Il programma chiede in input la grandezza del parametro `batch_size` e il numero di `epoche` che si vogliono eseguire. 
 Una volta avviato il training verrà allenato il modello sull'intero dataset per ogni epoca e per ogni epoca verranno fatte tante iterazioni quante ne servono per arrivare alla fine del dataset, quindi il numero i iterazioni per ogni epoca dipende da `batch_size` (maggiore è il valore di `batch_size` e minori saranno le iterazioni necessarie e viceversa). Alla fine di ogni epoca, dopo l'ultima iterazione, verrà fatto un `validation test` su immagini che il modello elabora per la prima volta in modo da verificare l'**accuracy** raggiunta. 
 
-Durante il training verrano date informazioni in modo continuo sull'avanzamento dell'allenamento. Verrà anche segnalato con una checkbox quando l'accuratezza della rete è migliorata e alla fine di ogni epoca verrà visualizzato il risultato del `validation test`. 
+Durante il training verrano date informazioni in modo continuo sull'avanzamento dell'allenamento. Verrà anche segnalato con una checkbox quando l'accuratezza della rete è migliorata e alla fine di ogni epoca verrà visualizzato il risultato del `validation test`. Inoltre durante ogni allenamento verranno creati due file di log, uno in formato .txt che replica l'utput su console e uno in formato .csv contenente solamente le varie accuracy e le rispetive epoche ed iterazioni.
 
 ```
 TRAINING MODE
