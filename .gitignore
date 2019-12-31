@@ -1,0 +1,6 @@
+/DATASET/*
+cnn_genetic/cnn_genetic.slurm.py
+cnn_genetic/DATASET_T100K_V20K_T20K/NEUTRAL/*
+cnn_genetic/DATASET_T100K_V20K_T20K/SELECTION/*
+dataset_creator/__pycache__/*
+dataset_creator/.vscode/*

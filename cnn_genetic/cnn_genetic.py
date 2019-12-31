@@ -8,7 +8,6 @@ import sys
 import time
 import datetime
 import numpy as np
-from tqdm import tqdm
 from os import listdir
 import tensorflow as tf
 from pathlib import Path
@@ -20,10 +19,11 @@ import load_dataset
 get_images = load_dataset.get_images
 next_batch = load_dataset.next_batch
 
-import cnn_model_fn_v2
-cnn_model_fn = cnn_model_fn_v2.cnn_model_fn
+import cnn_model_fn
+cnn_model_fn = cnn_model_fn.cnn_model_fn
 
 os.system('clear')
+
 local_path = os.getcwd()
 # Uso path diversi in basa alla piattaforme in cui eseguo il programma
 save_path = ''
@@ -34,12 +34,14 @@ reorder_path = ''
 if sys.platform == 'linux':
     print('Programma avviato su Cluster:\n')
     save_path = '/home/mdonato/Checkpoints/model.ckpt'
+    sav = Path('/home/mdonato/Checkpoints/checkpoint')
     TensorBoard_path = "/home/mdonato/TensorBoard"
     dataset_path = local_path + '/DATASET/'
     reorder_path = '/home/mdonato/Reorder'
 elif sys.platform == 'darwin':
     print('Programma avviato su Mac:\n')
     save_path = "/Users/matteo/Documents/GitHub/Cnn_Genetic/cnn_genetic/.TensorFlow_Data/model.ckpt"
+    sav = Path('/Users/matteo/Documents/GitHub/Cnn_Genetic/cnn_genetic/.TensorFlow_Data/checkpoint')
     TensorBoard_path = "/Users/matteo/Documents/GitHub/Cnn_Genetic/cnn_genetic/TensorBoard"
     dataset_path = '/Users/matteo/Documents/GitHub/Cnn_Genetic/cnn_genetic/DATASET/'
     reorder_path = '/Users/matteo/Desktop/Reorder/'
@@ -92,10 +94,16 @@ prediction = tf.nn.softmax(logits)
 # TASSO DI ERRORE
 loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits_v2(logits=logits, labels=y))
 # DICHIARO UN OPTIMIZER CHE MODIFICA I PESI IN BASE AL LEARNING RATE
-optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate)
+optimizer = tf.train.AdamOptimizer(
+    learning_rate=learning_rate,
+    beta1=0.9,
+    beta2=0.999,
+    epsilon=1e-08,
+    use_locking=False,
+    name='Adam')
 # APPLICO L'OTTIMIZZAZIONE MINIMIZZANDO GLI ERRORI
 train_op = optimizer.minimize(loss)
-# CONFRONTO LE MIE PREVISIONI CON QUELLE CORRETTE DEL TRAIN TEST
+# CONFRONTO LE MIE PREVISIONI CON QUELLE CORRETTE DEL TRAIN SET
 correct_predict = tf.equal(tf.argmax(prediction, 1), tf.argmax(y, 1))
 # CONTROLLO L'ACCURACY CHE HO AVUTO
 accuracy = tf.reduce_mean(tf.cast(correct_predict, tf.float32))
@@ -137,7 +145,10 @@ with tf.Session() as sess:
         
         # Carico il modello addestrato in precedenza
         if load == True:
-            saver.restore(sess, save_path)
+            if sav.is_file():
+                saver.restore(sess, save_path)
+            else:
+                print("Nessun salvataggio trovato. Verrà cominciato l'allenamento da zero.")
 
         # epoche
         for step in range(1,epochs+1):
@@ -164,7 +175,7 @@ with tf.Session() as sess:
 
                 ######## LOG ########
                 log_acc = open('log_acc_' + now + '.txt', 'a')
-                if acc >= best_acc:
+                if acc >= best_acc and acc<1:
                     best_acc = acc
                     print('[e:' + str(step) + ', i:' + str(i) + ']\t\t' + '%.4f' % acc + '\t\t[X]\t\t' + '%.3f' % t + 's')#
                     log_acc.write('[e:' + str(step) + ', i:' + str(i) + ']\t' +'%.4f' % acc + '\t' + '%.3f' % t + '\t[X]\n')
@@ -206,7 +217,6 @@ with tf.Session() as sess:
         os.system('clear')
         print("TESTING MODE")
         
-        sav = Path('/Users/matteo/Documents/GitHub/Cnn_Genetic/cnn_genetic/.TensorFlow_Data/checkpoint')
         if sav.is_file():
 
             saver.restore(sess, save_path)
