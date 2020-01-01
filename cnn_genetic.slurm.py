@@ -23,7 +23,6 @@ import cnn_model_fn
 cnn_model_fn = cnn_model_fn.cnn_model_fn
 
 os.system('clear')
-
 local_path = os.getcwd()
 # Uso path diversi in basa alla piattaforme in cui eseguo il programma
 save_path = ''
@@ -31,32 +30,25 @@ TensorBoard_path = ''
 dataset_path = ''
 reorder_path = ''
 
-if sys.platform == 'linux':
-    print('Programma avviato su Cluster:\n')
-    save_path = '/home/mdonato/Checkpoints/model.ckpt'
-    sav = Path('/home/mdonato/Checkpoints/checkpoint')
-    TensorBoard_path = "/home/mdonato/TensorBoard"
-    dataset_path = local_path + '/DATASET/'
-    reorder_path = '/home/mdonato/Reorder'
-elif sys.platform == 'darwin':
-    print('Programma avviato su Mac:\n')
-    save_path = "/Users/matteo/Documents/GitHub/Cnn_Genetic/cnn_genetic/.TensorFlow_Data/model.ckpt"
-    sav = Path('/Users/matteo/Documents/GitHub/Cnn_Genetic/cnn_genetic/.TensorFlow_Data/checkpoint')
-    TensorBoard_path = "/Users/matteo/Documents/GitHub/Cnn_Genetic/cnn_genetic/TensorBoard"
-    dataset_path = '/Users/matteo/Documents/GitHub/Cnn_Genetic/cnn_genetic/DATASET/'
-    reorder_path = '/Users/matteo/Desktop/Reorder/'
+print('Programma avviato su Cluster:\n')
+save_path = local_path + '/Checkpoints/model.ckpt'
+sav = Path( local_path + '/Checkpoints/checkpoint')
+TensorBoard_path = local_path + "/TensorBoard"
+dataset_path = local_path + '/DATASET-Train10-Valid2-Test2/'
 
 #Training Parameters
 learning_rate = 0.001
 batch_size = 512
-epochs = 5
+epochs = 50
 
 #HyperParameters
+MODE = 'TRAIN'
+batch_size = 512
 img_size_h = 1000
 img_size_w = 48
 n_input = img_size_h*img_size_w
 n_classes = 2
-load = True
+load = False
 
 # Variabili per l'acc
 best_acc = 0
@@ -64,24 +56,18 @@ best_acc_eval = 0
 
 # Chiedo la modalità di esecuzione in un ciclo che esce solo in caso di risposta corretta
 while True:
-    MODE = str(input('Slezionare in che modo si vuole eseguire il modello (TRAIN/TEST): '))
-    if MODE=='TRAIN':
-        batch_size = int(input('Inserire un valore per il batch_size: ' ))
-        epochs = int(input('Inserire il numero di epoche da eseguire: '))
-        print('\n')
 
+    if MODE=='TRAIN':
         # Creo due nuovi file di log ad ogni allenamento, un file txt che replica l'output su console e un file csv con solo i valori delle accuracy per ogni esecuzione
         now = datetime.datetime.now()
         now = str(now.strftime("%Y-%m-%d_%H-%M"))
         log_acc = open('log_acc_' + now + '.txt', 'w')
         log_acc = open('log_acc_' + now + '.txt', 'a')
-        log_acc.write('PARAMETRI:\n - learning_rate: ' + str(learning_rate) + '\n - batch_size: ' + str(batch_size) + '\n - epochs: ' + str(epochs) + '\n\n')
+        log_acc.write('DATASET1\nPARAMETRI:\n - learning_rate: ' + str(learning_rate) + '\n - batch_size: ' + str(batch_size) + '\n - epochs: ' + str(epochs) + '\n\n')
         log_acc.close()
         log_csv = open('log_csv_' + now + '.csv', 'w')
         log_csv.write('Iterazione;Accuracy\n')
         log_csv.close()
-        break
-    if MODE=='TEST':
         break
 
 x = tf.placeholder(tf.float32, [None, img_size_h, img_size_w])

@@ -132,6 +132,7 @@ def cnn_model_fn(X, MODE, log=False):
         )
         if log==True:
             print('[LOG:logits]: ' + str(logits.shape))
+            print(type(logits))
         # input('Premi invio per continuare')
 
     return logits
